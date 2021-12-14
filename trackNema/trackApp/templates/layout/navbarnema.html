@@ -10,7 +10,7 @@
           <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
-            <a class="nav-link" href="/updatenema">Add New</a>
+            <a class="nav-link" href="/nemacreate">Add New</a>
         </li>
         <li class="nav-item active">
             <a class="nav-link" href="/nema_form">Return Form</a>
@@ -31,7 +31,7 @@
 
       <form class="form-inline my-2 my-lg-0" action="/searchnema" method="post">
         {% csrf_token %}
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="searchNema">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search Any Keyword " aria-label="Search" name="searchNema">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </form>
 
