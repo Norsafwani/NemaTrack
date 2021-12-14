@@ -1,0 +1,51 @@
+{% extends 'lightsolIndex.html' %}
+
+{% block content %}
+
+<!-- Navbar -->
+    {% include 'layout/navbarnema.html' %}
+<!-- End of Navbar -->
+
+
+<style>
+    table, th, td 
+     { 
+        border: 1px solid black;
+        border-collapse: collapse;
+     }
+</style>
+
+
+    {% if searchNema %}
+        <p>You search {{searchNema}} </p><br/>
+
+        {% for nem in nemas %}
+
+           <table>
+               <td>  <a href="/nema_view/{{ nem.id }}">  {{ nem }} </a><br/> </td>
+               <td> <a href="/nema_view/{{ nem.id }}"> {{ nem.app_key }} </a><br/> </td>
+                   
+             <!-- {{ nem }} - {{ nem.app_key }}  <br/> href="/viewsupplier/{{ it.supp_id }}" -->
+           </table>
+       
+        {% endfor %}
+
+        {% for nem2 in nemas2 %}
+
+         <table>
+            <td>  <a href="/nema_view/{{ nem2.id }}">  {{ nem2 }} </a><br/> </td>
+            <td> <a href="/nema_view/{{ nem2.id }}"> {{ nem2.app_key }} </a><br/> </td>
+                
+          <!-- {{ nem }} - {{ nem.app_key }}  <br/> href="/viewsupplier/{{ it.supp_id }}" -->
+         </table>
+    
+        {% endfor %}
+
+
+
+    {% else %}
+        <p>wrong </p>
+
+    {% endif %}
+
+{% endblock %}

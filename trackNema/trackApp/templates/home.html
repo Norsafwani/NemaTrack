@@ -1,0 +1,80 @@
+{% extends 'index.html' %}
+<!-- {% block title %} Home {% endblock %} -->
+{% block content %}
+<!--OSM-->
+{% load static %}
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    {% include 'layout/navbar.html' %}
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <div id="content">
+
+            <!-- Topbar -->
+            {% include 'layout/topbar.html' %}
+            <!-- End of Topbar -->
+            <!-- Begin Page Content -->
+            <div class="container-fluid h-100 pt-4 darker-nw">
+                <!-- Content Row -->
+                <div class="card mb-4 l-black rounded border-0">
+     
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="/indexnema">
+                            <button type="button" class="btn btn-primary">Nema Data</button>
+                        </a> 
+                        </li>
+                    </ul> 
+                    
+
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div id="menu1" class="tab-pane active fade-tab in">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="tableAlarm" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Nema Id</th>
+                                                <th>DEVUI</th>
+                                                <th>APPLICATION KEY</th>
+                                                <th>SHIPMENT DATE RECEIVED</th>
+                                                <th>SITE INSTALLATION DATE</th>  
+                                        
+                                            </tr>
+                                        </thead>
+                                        
+                                        <tbody>
+
+                                            
+                                        
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>              
+
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+
+        <!-- Footer -->
+        {% include 'layout/footer.html' %}
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+{% endblock %}
+
