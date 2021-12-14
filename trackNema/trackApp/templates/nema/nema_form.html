@@ -86,7 +86,6 @@ input[type=submit]:hover {
   <form action="/submitreturnform" method="POST" enctype = "multipart/form-data" >
     {% csrf_token %}
 
-
     <div class="row">
       <div class="col-25">
         <label for="dateuninstall">Date Uninstall (From Site)</label>
@@ -103,7 +102,7 @@ input[type=submit]:hover {
         <input type="date" id="datedetect" name="datedetect">
       </div>
     </div>
-
+<!-- 
     <div class="row">
       <div class="col-25">
         <label for="proof_doc">Proof</label>
@@ -116,7 +115,20 @@ input[type=submit]:hover {
           <option value="3">Video</option>
         </select>
       </div>
-    </div>
+    </div> -->
+
+    <!-- <div class="row">
+      <div class="col-25">
+        <label for="datedetect">Upload File:</label>
+      </div>
+      <div class="col-75">
+        <input type="file" id="proof_doc" name="proof_doc">
+      </div>
+    
+      {% if uploaded_file_url %}
+       <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+      {% endif %}
+    </div> -->
 
     <div class="row">
       <div class="col-25">
@@ -135,6 +147,21 @@ input[type=submit]:hover {
       <div class="col-75">
         <input type="text" id="no_siri" name="no_siri" placeholder="Nema Number Siri">
       </div>
+    </div>
+
+    <div class="row">
+      <div class="col-25">
+        <label for="documents">Document: </label>
+      </div>
+      <div class="col-75">
+        <input type="file" id="documents" name="documents">
+      </div>
+
+      <!--Coding for Upload File--> 
+      {% if uploaded_file_url %}
+        <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+      {% endif %}
+
     </div>
 
 

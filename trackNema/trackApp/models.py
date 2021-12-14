@@ -145,12 +145,15 @@ class Nema2(models.Model):
 class Nemareturnform(models.Model):
     dateuninstall = models.DateField(blank=True, null=True)
     datedetect = models.DateField(blank=True, null=True)
-    proof_doc = models.BinaryField(blank=True, null=True)
-    proof_image = models.BinaryField(blank=True, null=True)
     prof_describe = models.CharField(max_length=1, blank=True, null=True)
-    proof_video = models.BinaryField(blank=True, null=True)
     no_siri = models.CharField(db_column='No_Siri', max_length=1, blank=True, null=True)  # Field name made lowercase.
+    documents = models.BinaryField(blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'nemareturnform'
+
+class Document(models.Model):
+    description = models.CharField(max_length=255, blank=True)
+    document = models.FileField(upload_to='documents/')
+
