@@ -30,7 +30,7 @@ urlpatterns = [
     #UPDATE
     path('updatenema/<int:id>',nemacontroller.updatenema),
 
-    #UPDATESUBMIT
+    #UPDATE SUBMIT
     path('updatesubmitnema',nemacontroller.updatesubmitnema),
 
     #SEARCH 
@@ -45,7 +45,7 @@ urlpatterns = [
     #VIEW
     path('viewnema/<int:id>',nemacontroller.viewnema),
     
-    # SUBMIT ADD TRY NEMA2
+    #SUBMIT ADD TRY NEMA2
     path('submitnema2',nemacontroller.submitnema2),
 
     #RETURN FORM NEMA
@@ -54,14 +54,14 @@ urlpatterns = [
     #SUBMIT ADD TRY NEMA2
     path('submitreturnform',nemacontroller.submitreturnform),
 
-    # RETURN FORM LIST
+    #RETURN FORM LIST
     path ('return_nema',nemacontroller.return_nema, name='return_nema'),
 
     # #RETURN FORM LIST
     # path ('upload_return',nemacontroller.upload_return, name='upload_return'),
 
     # #RETURN FORM LIST
-    path ('indexnematry',nemacontroller.indexnematry, name='indexnematry'),
+    # path ('indexnematry',nemacontroller.indexnematry, name='indexnematry'),
 
 
 

@@ -178,8 +178,8 @@ def returnformnema(request,id):
     objnema2 = Nema2.objects.get(id=id)
     obj = {
         'objnema2': objnema2
-    }
-    return render(request, 'nema/nema_form.html', obj)
+        }
+    return render(request, 'nema/', obj)
 
 #Function Submit Return Form
 def submitreturnform(request):
@@ -199,30 +199,30 @@ def submitreturnform(request):
             return render(request, 'nema/nema_form.html', {})
 
 #Function for upload File (File System Storage)
-def fileupload(request):
-    if request.method == 'POST' and request.FILES['documents']:
-        documents = request.FILES['documents']
-        fs = FileSystemStorage()
-        filename = fs.save(product_file.name, product_file)
-        uploaded_file_url = fs.url(filename)
+# def fileupload(request):
+#     if request.method == 'POST' and request.FILES['documents']:
+#         documents = request.FILES['documents']
+#         fs = FileSystemStorage()
+#         filename = fs.save(product_file.name, product_file)
+#         uploaded_file_url = fs.url(filename)
 
-        return render(request, 'nema_form.html', {
-            'uploaded_file_url': uploaded_file_url
-        })
-    return render(request, 'product/createproduct.html')
+#         return render(request, 'nema_form.html', {
+#             'uploaded_file_url': uploaded_file_url
+#         })
+#     return render(request, 'product/createproduct.html')
 
 #Function for Upload Files & Images
-def form_upload(request):
-    if request.method == 'POST':
-        form = Nemareturnform(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('nema')
-    else:
-        form = Nemareturnform()
-    return render(request, 'nema/nema_form.html', {
-        'form': form
-    })
+# def form_upload(request):
+#     if request.method == 'POST':
+#         form = Nemareturnform(request.POST, request.FILES)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('nema')
+#     else:
+#         form = Nemareturnform()
+#     return render(request, 'nema/nema_form.html', {
+#         'form': form
+#     })
 
 #Function for Display Return Nema [List]
 def return_nema(request):
@@ -254,12 +254,12 @@ def return_nema(request):
 #     return render(request, 'nema/upload_try.html', {'form': form })
     
 
-#Function for Display Nema Data
-def indexnematry(request):
-    nematry = Nemareturnform.objects.all()
-    # print('print this', product)
-    content = {
-        'nematry':nematry,
-    }
-    return render(request, 'nema/indexnema.html', content)
+#TRY-Function for Display Nema Data
+# def indexnematry(request):
+#     nematry = Nemareturnform.objects.all()
+#     # print('print this', product)
+#     content = {
+#         'nematry':nematry,
+#     }
+#     return render(request, 'nema/indexnema.html', content)
     

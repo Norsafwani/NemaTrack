@@ -1,65 +1,41 @@
 {% extends 'index.html' %}
 
 {% block content %}
+<!--OSM-->
+{% load static %}
+<!--Map-->
+<!-- Page Wrapper -->
+<div id="wrapper">
 
-<!-- Navbar -->
-  {% include 'layout/navbarnema.html' %}
-<!-- End of Navbar -->
+    <!-- Sidebar -->
+    {% include 'layout/navbar.html' %}
+    <!-- End of Sidebar -->
 
-<html>
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
 
-<head>
+        <div id="content">
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-        table, th, td 
-         { 
-            border: 1px solid black;
-            border-collapse: collapse;
+            <!-- Topbar -->
+            {% include 'layout/topbar.html' %}
+            <!-- End of Topbar -->
+            <!-- Begin Page Content -->
+            <div class="container-fluid h-100 pt-4 darker-nw">
+                <!-- Content Row -->
+                <div class="card-body d-blue rounded card-cus">
+                    <h4 class="pb-4 text-white">
+                        Nema Return Form List 
+                        <span style="cursor: pointer; float: right; font-size: 1.5em;">
+                          
+                          <a title="Create Gateway" href="/nemacreate" class="btn" id="corg"
+                            style="border-color: white;color: white;cursor: pointer;"><i class="fas fa-plus"></i>&nbsp New Nema</a>
+                            <!-- <a href="/sYE8kSrGbwM=/addGroup" title="Create group"> <i class="fas fa-plus-square"></i></a> -->
+                          
+                        </span>
+                    </h4>
 
-         }
-
-         blockquote {
-            padding: 10px;
-            /* box-shadow:
-            inset 0 -3em 3em rgba(0,0,0,0.1),
-             0 0  0 2px rgb(255,255,255),
-             0.3em 0.3em 1em rgba(0,0,0,0.3); */
-             box-shadow: 10px 5px 5px rgb(18, 183, 233);
-}
-
-    </style>
-
-</head>
-    
-
-<div class="container-fluid h-100 pt-4 darker-nw">
-<blockquote>
-    <h2> Nema Sensor Information: </h2><br>
-
-</blockquote>
-    
-
-<h4>
-        
-    <span>
-      
-        <a href="/nemacreate" title="Create nema"> 
-            <button type="button" class="btn btn-primary">ADD DATA</button>
-        </a>
-       
-        <!-- <a href="nemacreate2" title="Create nema2"> 
-            <button type="button" class="btn btn-primary">Create NEMA 2</button>
-        </a> -->
-
-    </span>
-
-</h4>
-
-<table style="background-color:#c3e1ff">
+                        <div class="table-responsive">
+                        <table class="table text-white" id="datatb" style="border-top:transparent solid;">
     <tbody>
     <tr>
         <!--<td>#</td>-->
@@ -119,25 +95,27 @@
 
     </tbody>
 </table>
+                        
+                        </div>
+                    
+                    
+                </div>
 
-<div>
-    <!-- back button -->
-    <button onclick="goBack()">Back</button>
-    <a href="/" title="Home">Home</a>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+
+        <!-- Footer -->
+        {% include 'layout/footer.html' %}
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
 
 </div>
-
-</div>
-</html>
-
-  <!-- back button -->
-  <script>
-    function goBack() { window.history.back();}
-  </script>
-
-  <!-- Footer -->
-  {% include 'layout/footer.html' %}
-  <!-- End of Footer -->
+<!-- End of Page Wrapper -->
 
 
-  {% endblock %}
+{% endblock %}
