@@ -141,19 +141,34 @@ class Nema2(models.Model):
         managed = False
         db_table = 'nema2'
 
+    def __str__(self):
+        return f"{self.id}, {self.devui}"
 
 class Nemareturnform(models.Model):
     dateuninstall = models.DateField(blank=True, null=True)
     datedetect = models.DateField(blank=True, null=True)
-    prof_describe = models.CharField(max_length=1, blank=True, null=True)
-    no_siri = models.CharField(db_column='No_Siri', max_length=1, blank=True, null=True)  # Field name made lowercase.
+    prof_describe = models.CharField(max_length=255, blank=True, null=True)
+    no_siri = models.CharField(db_column='No_Siri', max_length=255, blank=True, null=True)  # Field name made lowercase.
     documents = models.BinaryField(blank=True, null=True)
+    nema = models.ForeignKey(Nema2, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'nemareturnform'
+    
+    def __str__(self):
+        return f"{self.id}, {self.no_siri}"
 
-class Document(models.Model):
-    description = models.CharField(max_length=255, blank=True)
-    document = models.FileField(upload_to='documents/')
+class TrackappDocument(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    description = models.CharField(max_length=255, blank=True, null=True)
+    document = models.CharField(max_length=100, blank=True, null=True)
 
+    class Meta:
+        managed = False
+        db_table = 'trackApp_document'
+    
+    def __str__(self):
+        return f"{self.id}, {self.description}"
+
+    

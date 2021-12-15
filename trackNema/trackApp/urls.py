@@ -54,11 +54,14 @@ urlpatterns = [
     #SUBMIT ADD TRY NEMA2
     path('submitreturnform',nemacontroller.submitreturnform),
 
-    #RETURN FORM LIST
+    # RETURN FORM LIST
     path ('return_nema',nemacontroller.return_nema, name='return_nema'),
 
-    #RETURN FORM LIST
-    path ('upload_return',nemacontroller.upload_return, name='upload_return'),
+    # #RETURN FORM LIST
+    # path ('upload_return',nemacontroller.upload_return, name='upload_return'),
+
+    # #RETURN FORM LIST
+    path ('indexnematry',nemacontroller.indexnematry, name='indexnematry'),
 
 
 

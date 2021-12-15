@@ -33,4 +33,5 @@ def submit_login(request):
 #Function for Logout
 def logout_nema(request):
     logout(request)
-    return redirect('/login')
+    return redirect('/')
+    # return render(request, 'login.html') 
