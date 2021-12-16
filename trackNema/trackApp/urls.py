@@ -7,9 +7,9 @@ urlpatterns = [
 
     #First Page = Login Page
     # path("",views.indexhome, name="indexhome"),567
-    path("", views.home, name="home"),
     # path('',views.indexhome),
 
+    path('', views.index),
     path('home', usercontroller.home, name="home"),
 
     # #NEMA DATA 

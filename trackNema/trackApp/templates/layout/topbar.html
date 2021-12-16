@@ -35,13 +35,6 @@
 
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
-        {% if request.get_full_path == "/sYE8kSrGbwM%3D/index" or request.get_full_path == "/sYE8kSrGbwM%3D/mapfeeder" or request.get_full_path == "/sYE8kSrGbwM%3D/map"%}
-        <!-- Nav Item - Alert -->
-        <div style="margin-top: auto;margin-bottom: auto;">
-            <input type="text" id="src_id" style="border-radius: 15px;">
-        </div>
-       
-        {% endif %}
 
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow">
@@ -52,11 +45,6 @@
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-
-                <a class="dropdown-item" href="/menu">
-                    <i class="fas fa-grip-horizontal fa-sm fa-fw mr-2 text-gray-400"></i>
-                    Main Menu
-                </a>
 
                 <a class="dropdown-item" href="/profileuser">
                     <i class="fas fa-grip-horizontal fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -69,9 +57,7 @@
                 </a>
             </div>
         </li>
-
     </ul>
-
 </nav>
 
 <style>

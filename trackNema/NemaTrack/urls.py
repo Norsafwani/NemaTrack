@@ -23,7 +23,9 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('login/',TemplateView.as_view(template_name='login.html')),
+    path('login',TemplateView.as_view(template_name='login.html')),
     path("", include("trackApp.urls")),
+    path('accounts/', include('django.contrib.auth.urls')),
     
 ]
 
