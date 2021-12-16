@@ -9,10 +9,6 @@ from django.core.files.storage import FileSystemStorage
 from trackApp.models import Nema2, Nemareturnform
 # from trackApp.forms import DocumentForm
 
-#Function for html create new Nema
-def nemacreate(request):
-    return render(request,'nema/nema_create.html',{})
-
 #Function for Display Nema Data
 def indexnema(request):
     nema = Nema2.objects.all()
@@ -21,6 +17,10 @@ def indexnema(request):
         'nema':nema,
     }
     return render(request, 'nema/nema_data.html', content)
+
+#Function for html create new Nema
+def nemacreate(request):
+    return render(request,'nema/nema_create.html',{})
 
 #Function Submit Create New Nema
 def submitnema(request):
@@ -49,7 +49,7 @@ def submitnema(request):
             contractor_name= contractorname,  end_client_name= endclientname, project_tender_name= projecttendername, 
             do_number= donumber, remarks= remarks )
             track.save()
-            return redirect('/nema')
+            return redirect('/indexnema')
 
 # Function for Submit Nema2
 def submitnema2(request):
@@ -80,7 +80,7 @@ def submitnema2(request):
             contractor_name= contractorname,  end_client_name= endclientname, project_tender_name= projecttendername, 
             do_number= donumber, remarks= remarks )
         track.save()
-    return redirect('/nema')
+    return redirect('/indexnema')
        
 
 #Function for Delete Nema Data
@@ -137,7 +137,7 @@ def updatesubmitnema(request):
         # nema.date_modified = now
         # nema.modified_by = user_id
         nema.save()
-    return redirect('/nema')
+    return redirect('/indexnema')
 
 #Function for Searching 
 def searchnema(request):
@@ -172,16 +172,16 @@ def viewnema(request,id):
     }
     return render(request, 'nema/nema_view.html', obj)
 
-#Function fo Return Form Nema
+#Function 'Return Form Nema'
 def returnformnema(request,id):
     # admin = ''
     objnema2 = Nema2.objects.get(id=id)
     obj = {
         'objnema2': objnema2
-        }
-    return render(request, 'nema/', obj)
+         }
+    return render(request, 'nema/nema_form.html', obj)
 
-#Function Submit Return Form
+#Function Submit 'Return Form' Form
 def submitreturnform(request):
     # id = request.session['id']
         if request.method=='POST':
@@ -198,17 +198,27 @@ def submitreturnform(request):
             form.save()
             return render(request, 'nema/nema_form.html', {})
 
-#Function for upload File (File System Storage)
-# def fileupload(request):
-#     if request.method == 'POST' and request.FILES['documents']:
-#         documents = request.FILES['documents']
-#         fs = FileSystemStorage()
-#         filename = fs.save(product_file.name, product_file)
-#         uploaded_file_url = fs.url(filename)
+#Function for Display Return Nema [List]
+def return_nema(request):
+    returnnema = Nemareturnform.objects.all()
+    # print('print this', product)
+    content = {
+        'returnnema':returnnema,
+    }
+    return render(request, 'nema/return_form_list.html', content)
 
-#         return render(request, 'nema_form.html', {
-#             'uploaded_file_url': uploaded_file_url
-#         })
+#Function for upload File (File System Storage)
+def fileupload(request):
+    if request.method == 'POST' and request.FILES['documents']:
+        # documents = request.FILES.get['documents'] 
+        documents = request.FILES.get('documents', False);
+        fs = FileSystemStorage()
+        filename = fs.save(product_file.name, product_file)
+        uploaded_file_url = fs.url(filename)
+
+        return render(request, 'nema_form.html', {
+            'uploaded_file_url': uploaded_file_url
+        })
 #     return render(request, 'product/createproduct.html')
 
 #Function for Upload Files & Images
@@ -224,14 +234,7 @@ def submitreturnform(request):
 #         'form': form
 #     })
 
-#Function for Display Return Nema [List]
-def return_nema(request):
-    returnnema = Nemareturnform.objects.all()
-    # print('print this', product)
-    content = {
-        'returnnema':returnnema,
-    }
-    return render(request, 'nema/return_form_list.html', content)
+
 
 #TRY UPLOAD - MODEL - Document
 #Function for Display Return Nema [List]

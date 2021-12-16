@@ -1,12 +1,41 @@
-{% extends 'lightsolIndex.html' %}
+{% extends 'index.html' %}
 
 {% block content %}
+<!--OSM-->
+{% load static %}
+<!--Map-->
+<!-- Page Wrapper -->
+<div id="wrapper">
 
-<!-- Navbar -->
-    {% include 'layout/navbarnema.html' %}
-<!-- End of Navbar -->
+    <!-- Sidebar -->
+    {% include 'layout/navbar.html' %}
+    <!-- End of Sidebar -->
 
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
 
+        <div id="content">
+
+            <!-- Topbar -->
+            {% include 'layout/topbar.html' %}
+            <!-- End of Topbar -->
+            <!-- Begin Page Content -->
+            <div class="container-fluid h-100 pt-4 darker-nw">
+                <!-- Content Row -->
+                <div class="card-body d-blue rounded card-cus">
+                    <h2 class="pb-4 text-white">
+                        Result For Your Search <br><br>
+                        <span style="cursor: pointer; float: right; font-size: 1.5em;">
+                            <!-- <form class="form-inline my-2 my-lg-0" action="/searchnema" method="post">
+                                {% csrf_token %}
+                                <input class="form-control mr-sm-2" type="search" placeholder="Search Any Keyword " aria-label="Search" name="searchNema">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                            </form> -->
+                            
+                        </span>
+                    </h2>
+
+                    
 <style>
     table, th, td 
      { 
@@ -22,7 +51,9 @@
         {% for nem in nemas %}
 
            <table>
-               <td>  <a href="/nema_view/{{ nem.id }}">  {{ nem }} </a><br/> </td>
+               <th>ID</th>
+               <td><a href="/nema_view/{{ nem.id }}">  {{ nem }} </a><br/> </td>
+               <th>ID</th>
                <td> <a href="/nema_view/{{ nem.id }}"> {{ nem.app_key }} </a><br/> </td>
                    
              <!-- {{ nem }} - {{ nem.app_key }}  <br/> href="/viewsupplier/{{ it.supp_id }}" -->
@@ -33,8 +64,15 @@
         {% for nem2 in nemas2 %}
 
          <table>
-            <td>  <a href="/nema_view/{{ nem2.id }}">  {{ nem2 }} </a><br/> </td>
-            <td> <a href="/nema_view/{{ nem2.id }}"> {{ nem2.app_key }} </a><br/> </td>
+            <tr>
+                <th>Devui Number</th>
+                <th>Application Key</th>
+            </tr>
+            <tr>
+                <td><a href="/nema_view/{{ nem2.id }}">  {{ nem2.devui}} </a><br/> </td> 
+                <td> <a href="/nema_view/{{ nem2.id }}"> {{ nem2.app_key }} </a><br/> </td>
+            </tr>
+           
                 
           <!-- {{ nem }} - {{ nem.app_key }}  <br/> href="/viewsupplier/{{ it.supp_id }}" -->
          </table>
@@ -47,5 +85,26 @@
         <p>wrong </p>
 
     {% endif %}
+
+
+                    
+                </div>
+
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+        </div>
+
+        <!-- Footer -->
+        {% include 'layout/footer.html' %}
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
 
 {% endblock %}

@@ -23,16 +23,19 @@
             <div class="container-fluid h-100 pt-4 darker-nw">
                 <!-- Content Row -->
                 <div class="card-body d-blue rounded card-cus">
-                    <h4 class="pb-4 text-white">
-                        Nema Return Form List 
-                        <span style="cursor: pointer; float: right; font-size: 1.5em;">
-                          
-                          <a title="Create Gateway" href="/nemacreate" class="btn" id="corg"
+                    <h2 class="pb-4 text-white">
+                        Nema Return Form List <br><br>
+                        <a title="Create New Nema" href="/nemacreate" class="btn" id="corg"
                             style="border-color: white;color: white;cursor: pointer;"><i class="fas fa-plus"></i>&nbsp New Nema</a>
-                            <!-- <a href="/sYE8kSrGbwM=/addGroup" title="Create group"> <i class="fas fa-plus-square"></i></a> -->
-                          
+                        <span style="cursor: pointer; float: right; font-size: 1.5em;">
+                            <form class="form-inline my-2 my-lg-0" action="/searchnema" method="post">
+                                {% csrf_token %}
+                                <input class="form-control mr-sm-2" type="search" placeholder="Search Any Keyword " aria-label="Search" name="searchNema">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                            </form>
+                            
                         </span>
-                    </h4>
+                    </h2>
 
                         <div class="table-responsive">
                         <table class="table text-white" id="datatb" style="border-top:transparent solid;">
