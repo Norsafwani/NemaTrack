@@ -1,7 +1,10 @@
-# from django import forms
-# from uploads.core.models import Document
+from django import forms
+from trackApp.models import Document, TrackappDocument
 
-# class DocumentForm(forms.ModelForm):
-#     class Meta:
-#         model = Document
-#         fields = ('description', 'document', )
+class TrackappDocumentForm(forms.ModelForm):
+    class Meta:
+        model = Document
+        fields = ('description', 'document', )
+
+class DocumentForm(forms.Form):
+    docfile = forms.FileField(label='Select a file')

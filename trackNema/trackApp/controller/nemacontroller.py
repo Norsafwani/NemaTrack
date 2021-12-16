@@ -7,6 +7,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import logout, authenticate, login
 from django.core.files.storage import FileSystemStorage
 from trackApp.models import Nema2, Nemareturnform
+import openpyxl
+from trackApp.forms import DocumentForm
 # from trackApp.forms import DocumentForm
 
 #Function for Display Nema Data
@@ -266,3 +268,56 @@ def fileupload(request):
 #     }
 #     return render(request, 'nema/indexnema.html', content)
     
+# Function for upload Excel(1)
+# def upload_excel(request):
+#         # you may put validations here to check extension or file size
+    
+#         excel_file = request.FILES["excel_file"]
+#         wb = openpyxl.load_workbook(excel_file)
+#         # getting a particular sheet by name out of many sheets
+#         worksheet = wb["Sheet1"]
+#         count = countsuccess = countfail = 0 
+#         msg = 'none'
+       
+#         # print(worksheet)
+#         # excel_data = list()
+#         # iterating over the rows and
+#         # getting value from each cell in row --  for row in worksheet.iter_rows(min_row=2,values_only=True):
+#         for row in worksheet.iter_rows(min_row=2,values_only=True):
+#             count = count + 1
+#             #row_data = list()
+#             deveui = str(row[1])
+#             appkey = str(row[2])
+
+#         # return HttpResponse(payload)
+#         # return HttpResponseRedirect('/')
+#         msg = 'Success add: '+str(countsuccess)+' - Failed add: '+str(countfail)
+#         func.logaction(userid, 'createdeviceexcel', countsuccess)
+#         return HttpResponse(msg)
+
+
+#Function File Upload
+def my_upload(request):
+    print(f"Great! You're using Python 3.6+. If you fail here, use the right version.")
+    message = 'Upload as many files as you want!'
+    # Handle file upload
+    if request.method == 'POST':
+        form = DocumentForm(request.POST, request.FILES)
+        if form.is_valid():
+            newdoc = Document(docfile=request.FILES['docfile'])
+            newdoc.save()
+
+            # Redirect to the document list after POST
+            return redirect('my-view')
+        else:
+            message = 'The form is not valid. Fix the following error:'
+    else:
+        form = DocumentForm()  # An empty, unbound form
+
+    # Load documents for the list page
+    documents = Document.objects.all()
+
+    # Render list page with the documents and the form
+    context = {'documents': documents, 'form': form, 'message': message}
+    return render(request, 'list.html', context)
+

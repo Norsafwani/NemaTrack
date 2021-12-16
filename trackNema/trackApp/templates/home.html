@@ -36,8 +36,62 @@
                         </li>
                     </ul> 
 
-                </div>              
-
+                </div>   
+                
+                <div class="col-lg-6">
+                    <label>Import Excel File</label>
+                    <form action="upload_excel" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input id="adddevicetype2" name="adddevicetype2" class="form-control" value="false" hidden>
+                        <input type="file" title="Upload excel file" name="excel_file"
+                               style="border: 1px solid black; padding: 5px;" required="required">
+                        <input type="submit" value="Upload"
+                               style="border: 1px solid green; padding:5px; border-radius: 2px; cursor: pointer;">
+                    </form>
+                    <!-- <a href="/static/appstreetlight/document/exampleExcelToUpload.xlsx" class="mt-5" download><i class="ti-download"></i>Example excel file</a>
+                    {% if messages %}
+                    {% for message in messages %}
+                        {% if message.tags == 'error'%}
+                        <div class="alert alert-danger alert-dismissible mt-3" role="alert">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            {{ message|safe }}
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                    {% endif %} -->
+                </div>
+              
+                <div class="col-lg-6">
+                        <!-- List of uploaded documents -->
+                        {% if documents %}
+                            All documents in the database:
+                            <ul>
+                                {% for document in documents %}
+                                    <li><a href="{{ document.docfile.url }}">{{ document.docfile.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p>No documents.</p>
+                        {% endif %}
+                
+                        <!-- Upload form. Note enctype attribute! -->
+                        <form action="{% url "my_upload" %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ message }}
+                            <p>{{ form.non_field_errors }}</p>
+                
+                            <p>{{ form.docfile.label_tag }} {{ form.docfile.help_text }}</p>
+                
+                            <p>
+                                {{ form.docfile.errors }}
+                                {{ form.docfile }}
+                            </p>
+                
+                            <p><input type="submit" value="Upload"/></p>
+                        </form>
+                        </div>
+                    
+                
 
             </div>
             <!-- End of Main Content -->
