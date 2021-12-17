@@ -63,11 +63,14 @@ urlpatterns = [
     # #RETURN FORM LIST
     # path ('indexnematry',nemacontroller.indexnematry, name='indexnematry'),
 
-    #UPLOAD EXCEL
+    #UPLOAD EXCEL mslhnye....
     # path ('upload_excel',nemacontroller.upload_excel, name='upload_excel'),
 
     #UPLOAD FILE
-    path ('my_upload',nemacontroller.my_upload, name='my_upload'),
+    # path ('my_upload',nemacontroller.my_upload, name='my_upload'),
+
+    #UPLOAD FILE(2)
+    path ('form_upload',nemacontroller.form_upload, name='form_upload'),
   
 
 ]

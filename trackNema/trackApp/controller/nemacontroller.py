@@ -6,9 +6,9 @@ from trackApp.models import AuthUser, AuthPermission
 from django.contrib.auth.forms import AuthenticationForm 
 from django.contrib.auth import logout, authenticate, login
 from django.core.files.storage import FileSystemStorage
-from trackApp.models import Nema2, Nemareturnform
+from trackApp.models import Nema2, Nemareturnform, TrackappDocument
 import openpyxl
-from trackApp.forms import DocumentForm
+# from trackApp.forms import DocumentForm
 # from trackApp.forms import DocumentForm
 
 #Function for Display Nema Data
@@ -223,20 +223,35 @@ def fileupload(request):
         })
 #     return render(request, 'product/createproduct.html')
 
-#Function for Upload Files & Images
+
+# #TRY-Function for Upload Files & Images ni ke .. kn ?
 # def form_upload(request):
 #     if request.method == 'POST':
-#         form = Nemareturnform(request.POST, request.FILES)
+#         form = TrackappDocument(request.POST, request.FILES)
 #         if form.is_valid():
-#             form.save()
-#             return redirect('nema')
+#            form.save()
+#            return redirect('indexnema')
 #     else:
-#         form = Nemareturnform()
+#         form = TrackappDocument()
 #     return render(request, 'nema/nema_form.html', {
 #         'form': form
 #     })
 
+#Function for upload File 
+def form_upload(request):
+    if request.method == 'POST' and request.FILES['file']:
+        file = request.FILES['file']
+        fs = FileSystemStorage()
+        filename = fs.save(file.name, file)
+        uploaded_file_url = fs.url(filename)
 
+        # ni klau berjaya ke? x ingt dh aku home la ei
+        return render(request, 'home.html', {  
+            'uploaded_file_url': uploaded_file_url
+        })
+
+    #  yang ni?   html dia lain sikit kn
+    return render(request, 'home.html')
 
 #TRY UPLOAD - MODEL - Document
 #Function for Display Return Nema [List]
@@ -257,30 +272,20 @@ def fileupload(request):
 #     else:
 #         form = DocumentForm()
 #     return render(request, 'nema/upload_try.html', {'form': form })
-    
 
-#TRY-Function for Display Nema Data
-# def indexnematry(request):
-#     nematry = Nemareturnform.objects.all()
-#     # print('print this', product)
-#     content = {
-#         'nematry':nematry,
-#     }
-#     return render(request, 'nema/indexnema.html', content)
     
-# Function for upload Excel(1)
+# TRY- Function for upload Excel(1) ni kot yg lightsol punya x ingt dh aque
 # def upload_excel(request):
 #         # you may put validations here to check extension or file size
     
 #         excel_file = request.FILES["excel_file"]
 #         wb = openpyxl.load_workbook(excel_file)
-#         # getting a particular sheet by name out of many sheets
-#         worksheet = wb["Sheet1"]
+#         # getting a particular sheet by name out of many sheets xtauuuuu ulang
+#         worksheet = wb["file"] 
 #         count = countsuccess = countfail = 0 
 #         msg = 'none'
-       
-#         # print(worksheet)
-#         # excel_data = list()
+#         print(worksheet)
+#         # excel_data = list() 
 #         # iterating over the rows and
 #         # getting value from each cell in row --  for row in worksheet.iter_rows(min_row=2,values_only=True):
 #         for row in worksheet.iter_rows(min_row=2,values_only=True):
@@ -296,28 +301,28 @@ def fileupload(request):
 #         return HttpResponse(msg)
 
 
-#Function File Upload
-def my_upload(request):
-    print(f"Great! You're using Python 3.6+. If you fail here, use the right version.")
-    message = 'Upload as many files as you want!'
-    # Handle file upload
-    if request.method == 'POST':
-        form = DocumentForm(request.POST, request.FILES)
-        if form.is_valid():
-            newdoc = Document(docfile=request.FILES['docfile'])
-            newdoc.save()
+#TRY- Function File Upload
+# def my_upload(request):
+#     print(f"Great! You're using Python 3.6+. If you fail here, use the right version.")
+#     message = 'Upload as many files as you want!'
+#     # Handle file upload
+#     if request.method == 'POST':
+#         form = DocumentForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             newdoc = Document(docfile=request.FILES['docfile'])
+#             newdoc.save()
 
-            # Redirect to the document list after POST
-            return redirect('my-view')
-        else:
-            message = 'The form is not valid. Fix the following error:'
-    else:
-        form = DocumentForm()  # An empty, unbound form
+#             # Redirect to the document list after POST
+#             return redirect('my-view')
+#         else:
+#             message = 'The form is not valid. Fix the following error:'
+#     else:
+#         form = DocumentForm()  # An empty, unbound form
 
-    # Load documents for the list page
-    documents = Document.objects.all()
+#     # Load documents for the list page
+#     documents = Document.objects.all()
 
-    # Render list page with the documents and the form
-    context = {'documents': documents, 'form': form, 'message': message}
-    return render(request, 'list.html', context)
+#     # Render list page with the documents and the form
+#     context = {'documents': documents, 'form': form, 'message': message}
+#     return render(request, 'list.html', context)
 

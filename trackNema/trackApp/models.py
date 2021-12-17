@@ -141,8 +141,6 @@ class Nema2(models.Model):
         managed = False
         db_table = 'nema2'
 
-    def __str__(self):
-        return f"{self.id}, {self.devui}"
 
 class Nemareturnform(models.Model):
     dateuninstall = models.DateField(blank=True, null=True)
@@ -155,23 +153,13 @@ class Nemareturnform(models.Model):
     class Meta:
         managed = False
         db_table = 'nemareturnform'
-    
-    def __str__(self):
-        return f"{self.id}, {self.no_siri}"
+
 
 class TrackappDocument(models.Model):
     id = models.BigAutoField(primary_key=True)
     description = models.CharField(max_length=255, blank=True, null=True)
-    document = models.CharField(max_length=100, blank=True, null=True)
+    file_doc = models.BinaryField(blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'trackApp_document'
-    
-    def __str__(self):
-        return f"{self.id}, {self.description}"
-
-class Document(models.Model):
-    docfile = models.FileField(upload_to='documents/%Y/%m/%d')
-
-    
