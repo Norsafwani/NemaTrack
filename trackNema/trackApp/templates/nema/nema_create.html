@@ -1,12 +1,23 @@
-<html>
+{% extends 'index.html' %}
 
+{% block content %}
+<!--OSM-->
+{% load static %}
+<!--Map-->
+<!-- Page Wrapper -->
+<!-- <div id="wrapper"> -->
+
+      <!-- Begin Page Content -->
+      <div class="container-fluid h-100 pt-4 darker-nw">
+
+
+<html>
 <head>
   <meta charset = "utf-8">
   <title>Add New Nema</title>
-  <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
-     rel = "stylesheet">
-  <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
-  <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>  
+   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>  
+   <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script> 
 
   <style>
     input[type=text], select {
@@ -19,7 +30,7 @@
       box-sizing: border-box;
     }
 
-    input[type=date-local], select {
+    input[type=date], select {
       width: 100%;
       padding: 12px 20px;
       margin: 8px 0;
@@ -31,7 +42,7 @@
     
     input[type=submit] {
       width: 100%;
-      background-color: #4CAF50;
+      background-color: #42abf1;
       color: white;
       padding: 14px 20px;
       margin: 8px 0;
@@ -41,17 +52,12 @@
     }
     
     input[type=submit]:hover {
-      background-color: #45a049;
+      background-color: #1d60db;
     }
     
-    div {
-      border-radius: 5px;
-      background-color: #f2f2f2;
-      padding: 20px;
-    }
     </style>
 
-  <!-- Javascript -->
+  <!-- Javascript  -->
   <script>
   
      $(function() {
@@ -59,12 +65,9 @@
         //    appendText:"(yy-mm-dd)",
            dateFormat:"yy-mm-dd",
         });
-        $( "#datepicker-2" ).datepicker({
-        //    appendText:"(yy-mm-dd)",
-           dateFormat:"yy-mm-dd",
-        });
      });
   </script>
+
 
 </head>
 
@@ -72,60 +75,66 @@
     Add New Nema Sensor
 </h2>
 
-<div> 
     
-<form action="/submitnema2" method="post"> 
+<form action="/submitnema2" method="post" > 
     {% csrf_token %}
 
     <label for="team_name">DEVUI: </label>
-    <input id="devui"  type="text" name="devui" value=""><br>
+    <input id="devui"  class="form-control" type="text" name="devui" value=""><br>
 
     <label for="team_name">APPLICATION KEY: </label>
-    <input id="app_key" type="text" name="app_key" value=""><br>
+    <input id="app_key" class="form-control"  type="text" name="app_key" value=""><br>
 
     <label for="team_name">SHIPMENT DATE RECEIVED: </label>
-    <input id="ship_date_received"  type="date-local" name="ship_date_received" value=""><br> 
-    <!-- <input type = "date-local" id = "datepicker-3" name="ship_date_received" value="" > -->
+    <input id="ship_date_received"  type="date" class="form-control" name="ship_date_received" value=""><br> 
+    <!-- <input type ="date" id = "datepicker-3" name="ship_date_received" value="" > -->
 
     <label for="team_name">SITE INSTALLATION DATE: </label>
-    <input id="site_install_date" type="date-local" name="site_install_date" value=""><br>
+    <input id="site_install_date" type="date" class="form-control" name="site_install_date" value=""><br>
     <!-- <input type = "date-local" id = "datepicker-2" name="site_install_date" value="" > -->
 
     <label for="team_name">DATE DELIVER: </label>
-    <input id="date_deliver" type="date-local" name="date_deliver" value=""><br>
+    <input id="date_deliver" type="date" class="form-control" name="date_deliver" value=""><br>
     <!-- <input type = "date-local" id = "datepicker-3" name="date_deliver" value="" > -->
 
     <label for="team_name">LIGHTSOL NAME: </label>
-    <input id="lightsol_name" type="text" name="lightsol_name" value=""><br>
+    <input id="lightsol_name" type="text" class="form-control"  name="lightsol_name" value=""><br>
 
     <label for="team_name">LICENSE ACTIVATION DATE: </label>
-    <input id="license_active_date"  type="date-local" name="license_active_date" value=""><br>
+    <input id="license_active_date"  type="date"  class="form-control" name="license_active_date" value=""><br>
     <!-- <input type = "date-local" id = "datepicker-3" name="license_active_date" value="" > -->
 
     <label for="team_name">LICENSE EXPIRED DATE: </label>
-    <input id="license_expired_date" type="date-local" name="license_expired_date" value=""><br>
+    <input id="license_expired_date" type="date" class="form-control" name="license_expired_date" value=""><br>
     <!-- <input type = "date-local" id = "datepicker-3" name="license_expired_date" value="" > -->
 
     <label for="team_name">CONTRACTOR NAME: </label>
-    <input id="contractor_name"  type="text" name="contractor_name" value=""><br>
+    <input id="contractor_name"  type="text" class="form-control" name="contractor_name" value=""><br>
 
     <label for="team_name">END CLIENT NAME: </label>
-    <input id="end_client_name" type="text" name="end_client_name" value=""><br>
+    <input id="end_client_name" type="text" class="form-control" name="end_client_name" value=""><br>
 
     <label for="team_name">PROJECT/TENDER NAME: </label>
-    <input id="project_tender_name" type="text" name="project_tender_name" value=""><br>
+    <input id="project_tender_name" type="text" class="form-control" name="project_tender_name" value=""><br>
 
     <label for="team_name">DO.NUMBER: </label>
-    <input id="do_number" type="date" name="do_number" value="" ><br>
+    <input id="do_number" type="date" class="form-control" name="do_number" value="" ><br>
     <!-- <input type = "date-local" id = "datepicker-3" name="do_number" value="" > -->
 
     <label for="team_name">REMARKS: </label>
-    <input id="remarks"  type="text" name="remarks" value=""><br>
+    <input id="remarks"  type="text" class="form-control" name="remarks" value=""><br>
 
     <input type="submit" value="ADD" id="submit">
+ 
 
 </form>
 
-</div>
     
 </html>
+
+</div> <!-- END Page Content -->
+
+<!--</div>  Page Wrapper -->
+
+
+{% endblock %}

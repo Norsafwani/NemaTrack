@@ -67,7 +67,7 @@ urlpatterns = [
     # path ('upload_excel',nemacontroller.upload_excel, name='upload_excel'),
 
     #UPLOAD FILE
-    # path ('my_upload',nemacontroller.my_upload, name='my_upload'),
+    path ('my_view',nemacontroller.my_view, name='my_view'),
 
     #UPLOAD FILE(2)
     path ('form_upload',nemacontroller.form_upload, name='form_upload'),

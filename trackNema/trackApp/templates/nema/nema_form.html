@@ -163,18 +163,18 @@ input[type=submit]:hover {
 
     <div class="row">
       <div class="col-25">
-        <label for="documents">Document: </label>
+        <label for="no_siri">PDF: </label>
       </div>
       <div class="col-75">
-        <input type="file" id="documents" name="documents">
+        <input type="file" class="form-control" name="product_file" id="product_file">
       </div>
+    </div>
 
       <!--Coding for Upload File--> 
-      {% if uploaded_file_url %}
-        <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
-      {% endif %}
+          {% if uploaded_file_url %}
+            <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+          {% endif %}
 
-    </div>
 
 
     <!-- <div class="row">

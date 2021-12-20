@@ -46,20 +46,29 @@
 
 
     {% if searchNema %}
-        <p>You search {{searchNema}} </p><br/>
+        <p>You search " {{searchNema}} " </p><br/>
+
+        <table style="width:100%">
+            <tr>
+              <th>DEVUI</th>
+              <th>APPLICATION KEY</th>
+            </tr>
 
         {% for nem in nemas %}
-
-           <table>
-               <th>ID</th>
-               <td><a href="/nema_view/{{ nem.id }}">  {{ nem }} </a><br/> </td>
-               <th>ID</th>
-               <td> <a href="/nema_view/{{ nem.id }}"> {{ nem.app_key }} </a><br/> </td>
+              
+               <!-- <td>ID</td>
+                   <td><a href="/nema_view/{{ nem.id }}">  {{ nem }} </a><br/> </td> -->
+               
                    
              <!-- {{ nem }} - {{ nem.app_key }}  <br/> href="/viewsupplier/{{ it.supp_id }}" -->
-           </table>
-       
+           
+            <tr>
+              <td><a href="/viewnema/{{ nem.id }}">  {{ nem.devui}} </a></td>
+              <td> {{ nem.app_key }} </td>
+            </tr>
+           
         {% endfor %}
+        </table>
 
         {% for nem2 in nemas2 %}
 
@@ -69,8 +78,8 @@
                 <th>Application Key</th>
             </tr>
             <tr>
-                <td><a href="/nema_view/{{ nem2.id }}">  {{ nem2.devui}} </a><br/> </td> 
-                <td> <a href="/nema_view/{{ nem2.id }}"> {{ nem2.app_key }} </a><br/> </td>
+                <td><a href="/viewnema/{{ nem2.id }}">  {{ nem2.devui}} </a><br/> </td> 
+                <td> <a href="/viewnema/{{ nem2.id }}"> {{ nem2.app_key }} </a><br/> </td>
             </tr>
            
                 

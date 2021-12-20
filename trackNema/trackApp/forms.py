@@ -1,5 +1,5 @@
-# from django import forms
-# from trackApp.models import TrackappDocument
+from django import forms
+from trackApp.models import Nemareturnform
 
 # class TrackappDocumentForm(forms.ModelForm):
 #     class Meta:
@@ -7,5 +7,5 @@
 #         fields = ('description', 'document', )
 #         docfile = forms.FileField(label='Select a file')
 
-# class DocumentForm(forms.Form):
-#     docfile = forms.FileField(label='Select a file')
+class NemareturnformForm(forms.Form):
+    docfile = forms.FileField(label='Select a file')

@@ -6,8 +6,9 @@ from trackApp.models import AuthUser, AuthPermission
 from django.contrib.auth.forms import AuthenticationForm 
 from django.contrib.auth import logout, authenticate, login
 from django.core.files.storage import FileSystemStorage
-from trackApp.models import Nema2, Nemareturnform, TrackappDocument
-import openpyxl
+from trackApp.models import Nema2, Nemareturnform
+import openpyxl #For Upload Excel
+
 # from trackApp.forms import DocumentForm
 # from trackApp.forms import DocumentForm
 
@@ -192,11 +193,11 @@ def submitreturnform(request):
             profdescribe = request.POST['prof_describe']          
             # proofvideo = request.POST['proof_video'] --proof_video = proofvideo,
             nosiri = request.POST['no_siri']
-            document = request.POST['documents'] 
+            documents = request.POST['documents'] 
             # For insert into database
             # object = nama model( namacolumn=nama variable, others - if any)
             form = Nemareturnform(dateuninstall=date_uninstall, datedetect=date_detect, 
-            prof_describe=profdescribe, no_siri=nosiri, documents=document)
+            prof_describe=profdescribe, no_siri=nosiri, documents=documents)
             form.save()
             return render(request, 'nema/nema_form.html', {})
 
@@ -212,16 +213,15 @@ def return_nema(request):
 #Function for upload File (File System Storage)
 def fileupload(request):
     if request.method == 'POST' and request.FILES['documents']:
-        # documents = request.FILES.get['documents'] 
-        documents = request.FILES.get('documents', False);
+        documents = request.FILES['documents']
         fs = FileSystemStorage()
-        filename = fs.save(product_file.name, product_file)
+        filename = fs.save(documents.name, documents)
         uploaded_file_url = fs.url(filename)
 
         return render(request, 'nema_form.html', {
             'uploaded_file_url': uploaded_file_url
         })
-#     return render(request, 'product/createproduct.html')
+    return render(request, 'nema/nema_form.html')
 
 
 # #TRY-Function for Upload Files & Images ni ke .. kn ?
@@ -302,27 +302,29 @@ def form_upload(request):
 
 
 #TRY- Function File Upload
-# def my_upload(request):
-#     print(f"Great! You're using Python 3.6+. If you fail here, use the right version.")
-#     message = 'Upload as many files as you want!'
-#     # Handle file upload
-#     if request.method == 'POST':
-#         form = DocumentForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             newdoc = Document(docfile=request.FILES['docfile'])
-#             newdoc.save()
+def my_view(request):
+    # print(f"Great! You're using Python 3.6+. If you fail here, use the right version.")
+    message = 'Upload as many files as you want!'
+    # Handle file upload
+    if request.method == 'POST':
+        form = NemareturnformForm(request.POST, request.FILES)
+        if form.is_valid():
+            newdoc = Nemareturnform(docfile=request.FILES['docfile'])
+            newdoc.save()
 
-#             # Redirect to the document list after POST
-#             return redirect('my-view')
-#         else:
-#             message = 'The form is not valid. Fix the following error:'
-#     else:
-#         form = DocumentForm()  # An empty, unbound form
+            # Redirect to the document list after POST
+            return redirect('my-view')
+        else:
+            message = 'The form is not valid. Fix the following error:'
+    else:
+        form = NemareturnformForm()  # An empty, unbound form
 
-#     # Load documents for the list page
-#     documents = Document.objects.all()
+    # Load documents for the list page
+    documents = Nemareturnform.objects.all()
 
-#     # Render list page with the documents and the form
-#     context = {'documents': documents, 'form': form, 'message': message}
-#     return render(request, 'list.html', context)
+    # Render list page with the documents and the form
+    context = {'documents': documents, 'form': form, 'message': message}
+    return render(request, 'return_form_list.html', context)
+
+
 
