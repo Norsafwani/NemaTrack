@@ -6,19 +6,25 @@ from trackApp.models import AuthUser, AuthPermission
 from django.contrib.auth.forms import AuthenticationForm 
 from django.contrib.auth import logout, authenticate, login
 from django.core.files.storage import FileSystemStorage
-from trackApp.models import Nema2, Nemareturnform, TrackappDocument
-import openpyxl
+from trackApp.models import Nema, Returnformnema
+import openpyxl #For Upload Excel
+
 # from trackApp.forms import DocumentForm
 # from trackApp.forms import DocumentForm
 
 #Function for Display Nema Data
 def indexnema(request):
-    nema = Nema2.objects.all()
+    nema = Nema.objects.all()
     # print('print this', product)
     content = {
         'nema':nema,
     }
     return render(request, 'nema/nema_data.html', content)
+
+#Function Date
+# def strdatetimeToDatetime(strdate):
+#     datetime2 = datetime.strptime(strdate, '%Y-%m-%d')
+#     # return datetime2
 
 #Function for html create new Nema
 def nemacreate(request):
@@ -29,7 +35,7 @@ def submitnema(request):
     # id = request.session['id']
     # if request.session._session:
         if request.method=='POST':
-            nema_id = request.POST['id']
+            # nema_id = request.POST['id']
             devui_no = request.POST['devui']
             appkey = request.POST['app_key']
             shipdatereceived = request.POST['ship_date_received']
@@ -44,71 +50,40 @@ def submitnema(request):
             donumber = request.POST['do_number']            
             remarks = request.POST['remarks']
 
-            # For insert into database
+            # For insert into database-id= nema_id,
             # object = nama model( namacolumn=nama variable, others - if any)
-            track = Nema2(id= nema_id, devui=devui_no, app_key=appkey, ship_date_received=shipdatereceived, site_install_date= siteinstalldate, 
+            track = Nema(devui=devui_no, app_key=appkey, ship_date_received=shipdatereceived, site_install_date= siteinstalldate, 
             date_deliver=datedeliver, lightsol_name = lightsolname, license_active_date=licenseactivedate, license_expired_date= licenseexpireddate,
             contractor_name= contractorname,  end_client_name= endclientname, project_tender_name= projecttendername, 
             do_number= donumber, remarks= remarks )
             track.save()
             return redirect('/indexnema')
 
-# Function for Submit Nema2
-def submitnema2(request):
-    # id = request.session['id']
-    if request.method=='POST':
-        # nema_id = request.POST['id']
-        # devnames = request.POST['devname']
-        devui_no = request.POST['devui']
-        appkey = request.POST['app_key']
-        shipdatereceived = request.POST['ship_date_received']
-        # shipdatereceived = datetime.strptime(start, '%Y-%m-%d %H:%M:%S')
-        siteinstalldate = request.POST['site_install_date'] 
-        datedeliver = request.POST['date_deliver']
-        lightsolname = request.POST['lightsol_name']  
-        licenseactivedate = request.POST['license_active_date']  
-        licenseexpireddate = request.POST['license_expired_date'] 
-        contractorname = request.POST['contractor_name']   
-        endclientname = request.POST['end_client_name']         
-        projecttendername = request.POST['project_tender_name']       
-        donumber = request.POST['do_number']            
-        remarks = request.POST['remarks']
-       
-            # For insert into database -- , id= nema_id,
-            # object = nama model( namacolumn=nama variable, others - if any)
-        # track = Nema2( devname=devnames )
-        track = Nema2(devui=devui_no, app_key=appkey, ship_date_received=shipdatereceived, site_install_date= siteinstalldate, 
-            date_deliver=datedeliver, lightsol_name = lightsolname, license_active_date=licenseactivedate, license_expired_date= licenseexpireddate,
-            contractor_name= contractorname,  end_client_name= endclientname, project_tender_name= projecttendername, 
-            do_number= donumber, remarks= remarks )
-        track.save()
-    return redirect('/indexnema')
-       
 
 #Function for Delete Nema Data
-def deletenema(request, id):
-    deleteN = Nema2.objects.get(id=id)
+def deletenema(request, nema_id):
+    deleteN = Nema.objects.get(nema_id=nema_id)
     deleteN.delete()
     # success_url = reverse_lazy('indexproduct')
     return redirect('/indexnema')
 
 #Function for Update Nema Data
-def updatenema(request,id):
-    nema = Nema2.objects.get(id=id)
+def updatenema(request,nema_id):
+    nema = Nema.objects.get(nema_id=nema_id)
+   
     obj = {
+        
         'nema': nema,
+        
     }
     return render(request, 'nema/nema_update.html', obj)
 
 #Funtion for Submit Update Nema Data
-def updatesubmitnema(request):
+def updatesubmitnema(request,id):
     if request.method == "POST":
-        # user_id = request.session['user_id']
-        # now = datetime.now() 
-        # id = request.POST['id']
-        id = request.POST['id']
+        nema_id = request.POST['nema_id']
         devui_no = request.POST['devui']       
-        appkey = request.POST['app_key']
+        appkey = request.POST['app_key']       
         shipdatereceived = request.POST['ship_date_received']
         siteinstalldate = request.POST['site_install_date']
         datedeliver = request.POST['date_deliver']         
@@ -122,7 +97,7 @@ def updatesubmitnema(request):
         remarks = request.POST['remarks']
              
         # print(devui)
-        nema = Nema2.objects.get(id=id)
+        nema = Nema.objects.get(nema_id=nema_id)
         nema.devui = devui_no
         nema.app_key = appkey
         nema.ship_date_received = shipdatereceived
@@ -141,14 +116,15 @@ def updatesubmitnema(request):
         nema.save()
     return redirect('/indexnema')
 
+
 #Function for Searching 
 def searchnema(request):
     # global nemas
     if request.method == "POST":
         searchNema =  request.POST['searchNema'] 
         #nemas(Return search result)
-        nemas = Nema2.objects.filter(devui__contains=searchNema)
-        nemas2 = Nema2.objects.filter(app_key__contains=searchNema)
+        nemas = Nema.objects.filter(devui__contains=searchNema)
+        nemas2 = Nema.objects.filter(app_key__contains=searchNema)
 
         # app_key__contains=searchNema
         obj = {
@@ -166,20 +142,20 @@ def searchnema(request):
 #     return render(request,'nema/nema_create.html',{})
 
 #Function fo view 1 specific Nema
-def viewnema(request,id):
+def viewnema(request,nema_id):
     # admin = ''
-    objnema = Nema2.objects.get(id=id)
+    objnema = Nema.objects.get(nema_id=nema_id)
     obj = {
         'objnema': objnema
     }
     return render(request, 'nema/nema_view.html', obj)
 
 #Function 'Return Form Nema'
-def returnformnema(request,id):
+def returnformnema(request,nema_id):
     # admin = ''
-    objnema2 = Nema2.objects.get(id=id)
+    objNema = Nema.objects.get(nema_id=nema_id)
     obj = {
-        'objnema2': objnema2
+        'objNema': objNema
          }
     return render(request, 'nema/nema_form.html', obj)
 
@@ -189,20 +165,41 @@ def submitreturnform(request):
         if request.method=='POST':
             date_uninstall = request.POST['dateuninstall']
             date_detect = request.POST['datedetect']      
-            profdescribe = request.POST['prof_describe']          
+            proofdescribe = request.POST['proof_describe']          
             # proofvideo = request.POST['proof_video'] --proof_video = proofvideo,
             nosiri = request.POST['no_siri']
-            document = request.POST['documents'] 
+
+            #Image
+            image_proof = request.FILES.get('image_proof','')
+            filename = None
+            if image_proof != '':
+               the_file = request.FILES['image_proof']
+               fs = FileSystemStorage()
+               path = 'trackNema/static/'
+               filename = fs.save(path+username+'-'+the_file.name, the_file)
+               uploaded_file_url = fs.url(filename)
+
+            #Pdf
+            pdf_proof = request.FILES.get('pdf_proof','')
+            filename = None
+            if pdf_proof != '':
+               the_file = request.FILES['pdf_proof']
+               fs = FileSystemStorage()
+               path = 'appstreetlight/static/'
+               filename = fs.save(path+username+'-'+the_file.name, the_file)
+               uploaded_file_url = fs.url(filename)
+        
+
             # For insert into database
             # object = nama model( namacolumn=nama variable, others - if any)
-            form = Nemareturnform(dateuninstall=date_uninstall, datedetect=date_detect, 
-            prof_describe=profdescribe, no_siri=nosiri, documents=document)
+            form = Returnformnema(dateuninstall=date_uninstall, datedetect=date_detect, 
+            proof_describe=proofdescribe, no_siri=nosiri, image_proof = filename, pdf_proof = filename)
             form.save()
-            return render(request, 'nema/nema_form.html', {})
+        return render(request, 'nema/nema_form.html', {})
 
 #Function for Display Return Nema [List]
 def return_nema(request):
-    returnnema = Nemareturnform.objects.all()
+    returnnema = Returnformnema.objects.all()
     # print('print this', product)
     content = {
         'returnnema':returnnema,
@@ -212,16 +209,15 @@ def return_nema(request):
 #Function for upload File (File System Storage)
 def fileupload(request):
     if request.method == 'POST' and request.FILES['documents']:
-        # documents = request.FILES.get['documents'] 
-        documents = request.FILES.get('documents', False);
+        documents = request.FILES['documents']
         fs = FileSystemStorage()
-        filename = fs.save(product_file.name, product_file)
+        filename = fs.save(documents.name, documents)
         uploaded_file_url = fs.url(filename)
 
         return render(request, 'nema_form.html', {
             'uploaded_file_url': uploaded_file_url
         })
-#     return render(request, 'product/createproduct.html')
+    return render(request, 'nema/nema_form.html')
 
 
 # #TRY-Function for Upload Files & Images ni ke .. kn ?
@@ -238,20 +234,20 @@ def fileupload(request):
 #     })
 
 #Function for upload File 
-def form_upload(request):
-    if request.method == 'POST' and request.FILES['file']:
-        file = request.FILES['file']
-        fs = FileSystemStorage()
-        filename = fs.save(file.name, file)
-        uploaded_file_url = fs.url(filename)
+# def form_upload(request):
+#     if request.method == 'POST' and request.FILES['file']:
+#         file = request.FILES['file']
+#         fs = FileSystemStorage()
+#         filename = fs.save(file.name, file)
+#         uploaded_file_url = fs.url(filename)
 
-        # ni klau berjaya ke? x ingt dh aku home la ei
-        return render(request, 'home.html', {  
-            'uploaded_file_url': uploaded_file_url
-        })
+#         # ni klau berjaya ke? x ingt dh aku home la ei
+#         return render(request, 'home.html', {  
+#             'uploaded_file_url': uploaded_file_url
+#         })
 
-    #  yang ni?   html dia lain sikit kn
-    return render(request, 'home.html')
+#     #  yang ni?   html dia lain sikit kn
+#     return render(request, 'home.html')
 
 #TRY UPLOAD - MODEL - Document
 #Function for Display Return Nema [List]
@@ -274,42 +270,72 @@ def form_upload(request):
 #     return render(request, 'nema/upload_try.html', {'form': form })
 
     
-# TRY- Function for upload Excel(1) ni kot yg lightsol punya x ingt dh aque
-# def upload_excel(request):
-#         # you may put validations here to check extension or file size
-    
-#         excel_file = request.FILES["excel_file"]
-#         wb = openpyxl.load_workbook(excel_file)
-#         # getting a particular sheet by name out of many sheets xtauuuuu ulang
-#         worksheet = wb["file"] 
-#         count = countsuccess = countfail = 0 
-#         msg = 'none'
-#         print(worksheet)
-#         # excel_data = list() 
-#         # iterating over the rows and
-#         # getting value from each cell in row --  for row in worksheet.iter_rows(min_row=2,values_only=True):
-#         for row in worksheet.iter_rows(min_row=2,values_only=True):
-#             count = count + 1
-#             #row_data = list()
-#             deveui = str(row[1])
-#             appkey = str(row[2])
+# TRY- Function for upload Excel(1) [ sepang_iot]
+# @login_required
+def get_excel(request):
+    import openpyxl
 
-#         # return HttpResponse(payload)
-#         # return HttpResponseRedirect('/')
-#         msg = 'Success add: '+str(countsuccess)+' - Failed add: '+str(countfail)
-#         func.logaction(userid, 'createdeviceexcel', countsuccess)
-#         return HttpResponse(msg)
+  #(adddevicetype?)
+    adddevicetype = request.POST['adddevicetype2']
+    # return HttpResponse(adddevicetype)
+
+    excel_file = request.FILES["excel_file"]
+    wb = openpyxl.load_workbook(excel_file)
+    worksheet = wb["Sheet1"] #Sheet1 = empty file excel tab = sheet1 
+    count = countsuccess = countfail = 0 
+    msg = 'none'
+
+    for row in worksheet.iter_rows(min_row=2,values_only=True):
+        count = count + 1
+       
+        devui = str(row[0])
+        app_key = str(row[1])
+        ship_date_received = str(row[2])
+        site_install_date = str(row[3])
+        date_deliver = str(row[4])
+        lightsol_name = str(row[5])
+        license_active_date = str(row[6])
+        license_expired_date = str(row[7])
+        contractor_name = str(row[8])
+        end_client_name = str(row[9])
+        project_tender_name = str(row[10])
+        do_number = str(row[11])
+        remarks = str(row[12])
+
+        if response2.status_code == 200:
+            # print('Success addDeviceAppKey')
+            nema = Nema(devui=devui,app_key=app_key,
+                        ship_date_received=ship_date_received,
+                        site_install_date=site_install_date,date_deliver=date_deliver,
+                        lightsol_name=lightsol_name,license_active_date=license_active_date,
+                        license_expired_date=license_expired_date,
+                        contractor_name=contractor_name,end_client_name=end_client_name,
+                        project_tender_name=project_tender_name, do_number=do_number,remarks=remarks)
+            nema.save()
+            msg = 'Successfully add devices'
+            countsuccess += 1
+        else:
+            msg = 'Failed add devices'
+            countfail += 1
+        
+    # return HttpResponse(payload)
+    # return HttpResponseRedirect('/')
+    msg = 'Success add: '+str(countsuccess)+' - Failed add: '+str(countfail)
+    func.logaction(userid, 'createdeviceexcel', countsuccess)
+    return HttpResponse(msg)
+
+
 
 
 #TRY- Function File Upload
-# def my_upload(request):
-#     print(f"Great! You're using Python 3.6+. If you fail here, use the right version.")
+# def my_view(request):
+#     # print(f"Great! You're using Python 3.6+. If you fail here, use the right version.")
 #     message = 'Upload as many files as you want!'
 #     # Handle file upload
 #     if request.method == 'POST':
-#         form = DocumentForm(request.POST, request.FILES)
+#         form = NemareturnformForm(request.POST, request.FILES)
 #         if form.is_valid():
-#             newdoc = Document(docfile=request.FILES['docfile'])
+#             newdoc = Nemareturnform(docfile=request.FILES['docfile'])
 #             newdoc.save()
 
 #             # Redirect to the document list after POST
@@ -317,12 +343,14 @@ def form_upload(request):
 #         else:
 #             message = 'The form is not valid. Fix the following error:'
 #     else:
-#         form = DocumentForm()  # An empty, unbound form
+#         form = NemareturnformForm()  # An empty, unbound form
 
 #     # Load documents for the list page
-#     documents = Document.objects.all()
+#     documents = Nemareturnform.objects.all()
 
 #     # Render list page with the documents and the form
 #     context = {'documents': documents, 'form': form, 'message': message}
-#     return render(request, 'list.html', context)
+#     return render(request, 'return_form_list.html', context)
+
+
 

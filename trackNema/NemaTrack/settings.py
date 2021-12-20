@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'trackApp' ,
-    'import_export' , #Fir export, import file excel in django admin
+    'import_export' , #For export, import file excel in django admin
     'django.contrib.postgres' , #To use the search lookup
 ]
 
@@ -84,15 +84,14 @@ DATABASES = {
     #     'NAME': BASE_DIR / 'db.sqlite3',
     # },
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'trackSystem',
-        'USER': 'postgres',
-        'PASSWORD': 'password',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'Nema',
+        'USER': 'root',
+        'PASSWORD': 'yourpassword',
         'HOST': '0.0.0.0',
-        'PORT': '5432',
+        'PORT': '3306',
     },
 }
-
 
 
 # Password validation

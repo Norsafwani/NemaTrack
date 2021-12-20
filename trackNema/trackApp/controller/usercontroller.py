@@ -1,7 +1,7 @@
 # Create your views here. where all the functions lies
 from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render
-from trackApp.models import Nema2, AuthUser
+from trackApp.models import Nema, AuthUser
 from django.shortcuts import redirect
 from datetime import date, datetime
 from trackApp.models import AuthUser, AuthPermission

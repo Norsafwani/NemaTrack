@@ -40,8 +40,8 @@
                                 <td>Prolem Description</td>
                                 <td>No. Siri</td>
                                 <td>Document</td>
+                                <td>Image</td>
                                
-                        
                             </tr>
                         
                             {% for re in returnnema %}
@@ -52,9 +52,11 @@
                                 <td><a class="nav-link" href="/viewnema/{{ re.nema.id }}">{{ re.nema.devui }}</a></td>
                                 <td> {{ re.dateuninstall }}</a></td>
                                 <td> {{ re.datedetect }} </td>
-                                <td> {{ re.prof_describe }} </td>
+                                <td> {{ re.proof_describe }} </td>
                                 <td> {{ re.no_siri }} </td>
-                                <td> {{ re.documents }} </td>
+                                <td> {{ re.pdf_proof }} </td>
+                                <td> {{ re.image_proof }} </td>
+
                                                       
                             </tr>
 

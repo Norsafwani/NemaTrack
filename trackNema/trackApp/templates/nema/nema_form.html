@@ -147,8 +147,8 @@ input[type=submit]:hover {
         <label for="prof_describe">Problem Description</label>
       </div>
       <div class="col-75">
-        <!-- <input type="text" id="prof_describe" name="prof_describe" placeholder="Nema Number Siri"> -->
-        <textarea id="prof_describe" name="prof_describe" placeholder="Description" style="height:100px"></textarea>
+        <!-- <input type="text" id="proof_describe" name="proof_describe" placeholder="Nema Number Siri"> -->
+        <textarea id="proof_describe" name="proof_describe" placeholder="Problem Description" style="height:100px"></textarea>
       </div>
     </div>
 
@@ -161,20 +161,31 @@ input[type=submit]:hover {
       </div>
     </div>
 
+  </form>
+
     <div class="row">
       <div class="col-25">
-        <label for="documents">Document: </label>
+        <label for="no_siri">PDF: </label>
       </div>
       <div class="col-75">
-        <input type="file" id="documents" name="documents">
+        <input type="file" class="form-control" name="pdf_proof" id="pdf_proof">
       </div>
+    </div>image_proof
+
+    <div class="row">
+      <div class="col-25">
+        <label for="no_siri">PDF: </label>
+      </div>
+      <div class="col-75">
+        <input type="file" class="form-control" name="image_proof" id="image_proof">
+      </div>
+    </div>
 
       <!--Coding for Upload File--> 
-      {% if uploaded_file_url %}
-        <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
-      {% endif %}
+          {% if uploaded_file_url %}
+            <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+          {% endif %}
 
-    </div>
 
 
     <!-- <div class="row">

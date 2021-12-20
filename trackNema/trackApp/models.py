@@ -41,13 +41,13 @@ class AuthPermission(models.Model):
 class AuthUser(models.Model):
     password = models.CharField(max_length=128)
     last_login = models.DateTimeField(blank=True, null=True)
-    is_superuser = models.BooleanField()
+    is_superuser = models.IntegerField()
     username = models.CharField(unique=True, max_length=150)
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
     email = models.CharField(max_length=254)
-    is_staff = models.BooleanField()
-    is_active = models.BooleanField()
+    is_staff = models.IntegerField()
+    is_active = models.IntegerField()
     date_joined = models.DateTimeField()
 
     class Meta:
@@ -81,7 +81,7 @@ class DjangoAdminLog(models.Model):
     action_time = models.DateTimeField()
     object_id = models.TextField(blank=True, null=True)
     object_repr = models.CharField(max_length=200)
-    action_flag = models.SmallIntegerField()
+    action_flag = models.PositiveSmallIntegerField()
     change_message = models.TextField()
     content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING, blank=True, null=True)
     user = models.ForeignKey(AuthUser, models.DO_NOTHING)
@@ -122,7 +122,8 @@ class DjangoSession(models.Model):
         db_table = 'django_session'
 
 
-class Nema2(models.Model):
+class Nema(models.Model):
+    nema_id = models.AutoField(primary_key=True)
     devui = models.CharField(max_length=255, blank=True, null=True)
     app_key = models.CharField(max_length=255, blank=True, null=True)
     ship_date_received = models.DateField(blank=True, null=True)
@@ -139,27 +140,18 @@ class Nema2(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'nema2'
+        db_table = 'nema'
 
 
-class Nemareturnform(models.Model):
-    dateuninstall = models.DateField(blank=True, null=True)
-    datedetect = models.DateField(blank=True, null=True)
-    prof_describe = models.CharField(max_length=255, blank=True, null=True)
-    no_siri = models.CharField(db_column='No_Siri', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    documents = models.BinaryField(blank=True, null=True)
-    nema = models.ForeignKey(Nema2, models.DO_NOTHING, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'nemareturnform'
-
-
-class TrackappDocument(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    description = models.CharField(max_length=255, blank=True, null=True)
-    file_doc = models.BinaryField(blank=True, null=True)
+class Returnformnema(models.Model):
+    dateuninstall = models.DateTimeField()
+    datedetect = models.DateTimeField()
+    proof_describe = models.CharField(max_length=255)
+    no_siri = models.CharField(db_column='No_Siri', max_length=255)  # Field name made lowercase.
+    pdf_proof = models.TextField()
+    image_proof = models.TextField()
+    nema = models.ForeignKey(Nema, models.DO_NOTHING)
 
     class Meta:
         managed = False
-        db_table = 'trackApp_document'
+        db_table = 'returnformnema'
