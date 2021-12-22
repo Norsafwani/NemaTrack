@@ -1,11 +1,34 @@
 {% extends 'index.html' %}
 
 {% block content %}
-  <form method="post" enctype="multipart/form-data">
+
+  <!-- <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit">Upload Documents</button>
-  </form>
+  </form> -->
 
-  <p><a href="{% url 'home' %}">Return to home</a></p>
+  <!-- <p><a href="{% url 'home' %}">Return to home</a></p> -->
+<html>
+
+  <form action="/trydate" method="POST" enctype = "multipart/form-data" >
+    {% csrf_token %}
+
+     
+    <label for="team_name">ID: </label>
+    <input type="text" id="id_date" name="id">
+    
+    <label for="team_name">SITE INSTALLATION DATE: </label>
+    <input type="date" id="date_install" name="date_install">
+
+    <input type="submit" value="send" id="submit">
+
+  </form>
+</html>
+
+
+
 {% endblock %}
+
+
+

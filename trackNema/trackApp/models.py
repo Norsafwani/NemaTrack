@@ -141,8 +141,14 @@ class Nema2(models.Model):
         managed = False
         db_table = 'nema2'
 
-    def __str__(self):
-        return f"{self.id}, {self.devui}, {self.app_key}"
+
+class Nemadate(models.Model):
+    id = models.BigIntegerField(primary_key=True)
+    date_install = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'nemadate'
 
 
 class Nemareturnform(models.Model):
@@ -150,15 +156,9 @@ class Nemareturnform(models.Model):
     datedetect = models.DateField(blank=True, null=True)
     prof_describe = models.CharField(max_length=255, blank=True, null=True)
     no_siri = models.CharField(db_column='No_Siri', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    documents = models.TextField(blank=True, null=True)
+    documents = models.BinaryField(blank=True, null=True)
     nema = models.ForeignKey(Nema2, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'nemareturnform'
-
-# class Item(models.Model):
-#     name = models.TextField(max_length=191)
-#     price = models.TextField(max_length=50)
-#     description = models.TextField(max_length=500, null=True)
-#     image = models.ImageField(upload_to=filepath, null=True, blank=True)

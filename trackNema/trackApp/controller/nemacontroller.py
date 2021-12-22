@@ -1,12 +1,12 @@
 # Create your views here. where all the functions lies
 from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
-from datetime import date, datetime
+from datetime import date, datetime, time
 from trackApp.models import AuthUser, AuthPermission
 from django.contrib.auth.forms import AuthenticationForm 
 from django.contrib.auth import logout, authenticate, login
 from django.core.files.storage import FileSystemStorage
-from trackApp.models import Nema2, Nemareturnform
+from trackApp.models import Nema2, Nemareturnform, Nemadate
 import openpyxl #For Upload Excel
 
 # from trackApp.forms import DocumentForm
@@ -34,6 +34,9 @@ def submitnema(request):
             devui_no = request.POST['devui']
             appkey = request.POST['app_key']
             shipdatereceived = request.POST['ship_date_received']
+            shipdatereceived = shipdatereceived.strftime('%Y-%m-%d %H:%M:%S')
+            print(shipdatereceived)
+            
             siteinstalldate = request.POST['site_install_date']
             datedeliver = request.POST['date_deliver']           
             lightsolname = request.POST['lightsol_name']           
@@ -44,6 +47,7 @@ def submitnema(request):
             projecttendername = request.POST['project_tender_name']           
             donumber = request.POST['do_number']            
             remarks = request.POST['remarks']
+            # formatted_date = formatted_date.strftime('%Y-%m-%d %H:%M:%S')
 
             # For insert into database
             # object = nama model( namacolumn=nama variable, others - if any)
@@ -325,6 +329,25 @@ def my_view(request):
     # Render list page with the documents and the form
     context = {'documents': documents, 'form': form, 'message': message}
     return render(request, 'return_form_list.html', context)
+
+#TRY UNIX TIME
+
+def createdate(request):
+    return render(request,'nema/upload_try.html',{})
+
+def trydate(request):
+    if request.method=='POST':
+       
+        id = request.POST['id']
+        dateinstall = request.POST['date_install'] 
+        # timestamp = int(timestamp)
+        # dateinstall = datetime.fromtimestamp(timestamp)
+
+        dater = Nemadate(id= id, date_install=dateinstall )
+        dater.save()
+    return redirect('/indexnema')
+
+
 
 
 

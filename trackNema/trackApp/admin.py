@@ -3,7 +3,7 @@ from import_export.admin import ImportExportModelAdmin
 
 # Register your models here.
 
-from trackApp.models import Nema2, Nemareturnform
+from trackApp.models import Nema2, Nemareturnform, Nemadate
 # @admin.register(Nema)
 # class NemaAdmin(admin.ModelAdmin):
 #     pass
@@ -22,3 +22,6 @@ class Nemareturnform(admin.ModelAdmin):
     list_display = ("id", "dateuninstall")
     pass
 
+@admin.register(Nemadate)
+class Nemadate(admin.ModelAdmin):
+    pass
