@@ -126,16 +126,16 @@ class Nema(models.Model):
     nema_id = models.AutoField(primary_key=True)
     devui = models.CharField(max_length=255, blank=True, null=True)
     app_key = models.CharField(max_length=255, blank=True, null=True)
-    ship_date_received = models.DateField(blank=True, null=True)
-    site_install_date = models.DateField(blank=True, null=True)
-    date_deliver = models.DateField(blank=True, null=True)
+    ship_date_received = models.DateTimeField(blank=True, null=True)
+    site_install_date = models.DateTimeField(blank=True, null=True)
+    date_deliver = models.DateTimeField(blank=True, null=True)
     lightsol_name = models.CharField(max_length=255, blank=True, null=True)
-    license_active_date = models.DateField(blank=True, null=True)
-    license_expired_date = models.DateField(blank=True, null=True)
+    license_active_date = models.DateTimeField(blank=True, null=True)
+    license_expired_date = models.DateTimeField(blank=True, null=True)
     contractor_name = models.CharField(max_length=255, blank=True, null=True)
     end_client_name = models.CharField(max_length=255, blank=True, null=True)
     project_tender_name = models.CharField(max_length=255, blank=True, null=True)
-    do_number = models.DateField(blank=True, null=True)
+    do_number = models.DateTimeField(blank=True, null=True)
     remarks = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
@@ -144,13 +144,13 @@ class Nema(models.Model):
 
 
 class Returnformnema(models.Model):
-    dateuninstall = models.DateTimeField()
-    datedetect = models.DateTimeField()
-    proof_describe = models.CharField(max_length=255)
-    no_siri = models.CharField(db_column='No_Siri', max_length=255)  # Field name made lowercase.
-    pdf_proof = models.TextField()
-    image_proof = models.TextField()
-    nema = models.ForeignKey(Nema, models.DO_NOTHING)
+    dateuninstall = models.DateTimeField(blank=True, null=True)
+    datedetect = models.DateTimeField(blank=True, null=True)
+    proof_describe = models.CharField(max_length=255, blank=True, null=True)
+    no_siri = models.CharField(db_column='No_Siri', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    pdf_proof = models.TextField(blank=True, null=True)
+    image_proof = models.TextField(blank=True, null=True)
+    nema = models.ForeignKey(Nema, models.DO_NOTHING, blank=True, null=True)
 
     class Meta:
         managed = False

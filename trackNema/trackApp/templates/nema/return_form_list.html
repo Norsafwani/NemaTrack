@@ -49,13 +49,18 @@
                             <tr>
                             
                                 <td> {{ re.id }}</td> 
-                                <td><a class="nav-link" href="/viewnema/{{ re.nema.id }}">{{ re.nema.devui }}</a></td>
+                                <td><a class="nav-link" href="/viewnema/{{ re.nema.nema_id }}">{{ re.nema.devui }}</a></td>
                                 <td> {{ re.dateuninstall }}</a></td>
                                 <td> {{ re.datedetect }} </td>
                                 <td> {{ re.proof_describe }} </td>
                                 <td> {{ re.no_siri }} </td>
                                 <td> {{ re.pdf_proof }} </td>
-                                <td> {{ re.image_proof }} </td>
+                                <td> <!--{{ re.image_proof }}  -->
+                                    <!--Coding for Upload File--> 
+                                    {% if uploaded_file_url %}
+                                       <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+                                    {% endif %}
+                                </td>
 
                                                       
                             </tr>

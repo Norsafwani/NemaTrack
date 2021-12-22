@@ -32,6 +32,7 @@
                     border: 1px solid #ccc;
                     border-radius: 4px;
                     box-sizing: border-box;
+
                   }
                   
                   input[type=submit] {
@@ -64,20 +65,6 @@
           <form action="/updatesubmitnema" method="post"> <!-- action: go to controller-->
               {% csrf_token %}
           
-              <!-- <div class="form-group">
-                  <input type="text" value= {{ manufacturer.man_id }} name="man_id" hidden>
-                  <label class="control-label col-sm-2" for="manufacturer">Manufacturer Name:</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" name="man_name" id="man_name" value= "{{ manufacturer.man_name }"}>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="control-label col-sm-2" for="manufacturer">Manufacturer Address:</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" name="man_address" id="man_address" value="{{ manufacturer.man_address }}">
-                  </div>class="form-control"
-                </div> -->
-          
               <label class="text-white" for="nema">DEVUI: </label>
               <input type="text"  name="devui" id="devui" value= "{{ nema.devui }}"><br> 
           
@@ -85,8 +72,8 @@
               <input id="app_key"  type="text" name="app_key" value="{{ nema.app_key }}"><br>
           
               <label class="text-white" for="nema">SHIPMENT DATE RECEIVED: </label>
-              <input id="ship_date_received" type="date" name="ship_date_received" value= "{{nema.ship_date_received }}" placeholder="dd-mm-yyyy" 
-              min="1997-01-01" max="2030-12-31"><br> 
+              <input id="ship_date_received" type="date" name="ship_date_received" value= {{ nema.ship_date_received|date:'d-m-Y f A' }}
+               min="1997-01-01" max="2030-12-31"><br> 
       
               <label class="text-white"for="nema">SITE INSTALLATION DATE: </label>
               <input id="site_install_date" type="date" name="site_install_date" value= "{{ nema.site_install_date }}"><br>
@@ -122,7 +109,6 @@
           
           </form>
     
-      
       </html>
 
        <!-- back button -->

@@ -114,40 +114,12 @@ input[type=submit]:hover {
         <input type="date" id="datedetect" name="datedetect">
       </div>
     </div>
-<!-- 
-    <div class="row">
-      <div class="col-25">
-        <label for="proof_doc">Proof</label>
-      </div>
-      <div class="col-75">
-        <select id="proof" name="proof">
-          <option value="" selected="selected" >Choose Type of Proof</option>
-          <option value="1">Document</option>
-          <option value="2">Pictures</option>
-          <option value="3">Video</option>
-        </select>
-      </div>
-    </div> -->
-
-    <!-- <div class="row">
-      <div class="col-25">
-        <label for="datedetect">Upload File:</label>
-      </div>
-      <div class="col-75">
-        <input type="file" id="proof_doc" name="proof_doc">
-      </div>
-    
-      {% if uploaded_file_url %}
-       <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
-      {% endif %}
-    </div> -->
 
     <div class="row">
       <div class="col-25">
         <label for="prof_describe">Problem Description</label>
       </div>
       <div class="col-75">
-        <!-- <input type="text" id="proof_describe" name="proof_describe" placeholder="Nema Number Siri"> -->
         <textarea id="proof_describe" name="proof_describe" placeholder="Problem Description" style="height:100px"></textarea>
       </div>
     </div>
@@ -160,60 +132,24 @@ input[type=submit]:hover {
         <input type="text" id="no_siri" name="no_siri" placeholder="Nema Number Siri">
       </div>
     </div>
-
-  </form>
-
+  
     <div class="row">
-      <div class="col-25">
-        <label for="no_siri">PDF: </label>
-      </div>
-      <div class="col-75">
-        <input type="file" class="form-control" name="pdf_proof" id="pdf_proof">
-      </div>
-    </div>image_proof
-
-    <div class="row">
-      <div class="col-25">
-        <label for="no_siri">PDF: </label>
-      </div>
-      <div class="col-75">
-        <input type="file" class="form-control" name="image_proof" id="image_proof">
-      </div>
-    </div>
-
-      <!--Coding for Upload File--> 
-          {% if uploaded_file_url %}
-            <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
-          {% endif %}
-
-
-
-    <!-- <div class="row">
-      <div class="col-25">
-        <label for="proof_doc">Country</label>
-      </div>
-      <div class="col-75">
-        <select id="country" name="country">
-          <textarea id="no_siri" name="no_siri" placeholder="Siri Number" style="height:100px"></textarea>
-          <option value="australia">Australia</option>
-          <option value="canada">Canada</option>
-          <option value="usa">USA</option>
-        </select>
-      </div>
+        <div class="col-25">
+          <label for="no_siri">Images: </label>
+        </div>
+        <div class="col-75">
+          <input class="form-control" type="file" accept="image/*" name="image_proof" id="imgInp">
+          <!-- <img id="blah" src="#" alt="your image:" width="300" height="300" /> -->
+          <!-- <input type="file" class="form-control" name="product_file" id="product_file"> -->
+        </div>
     </div> 
-     <div class="row">
-      <div class="col-25">
-        <label for="proof_doc">Proof:(Doc)</label>
-      </div>
-      <div class="col-75">
-        <input type="text" id="proof_doc" name="proof_doc">
-      </div>
-    </div>-->
 
     <div class="row">
       <input type="submit" value="Submit">
     </div>
+
   </form>
+   
 
 
 </body>
@@ -223,6 +159,26 @@ input[type=submit]:hover {
       </div> <!-- END Page Content -->
 
 </div> <!-- Page Wrapper -->
+
+<script>
+
+  function readURL(input) 
+  {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function (e) {
+				$('#blahSl').attr('src', e.target.result);
+			}
+
+			reader.readAsDataURL(input.files[0]); // convert to base64 string
+		}
+	}
+	$("#imgInp").change(function () {
+		readURL(this);
+	});
+
+</script>
 
 
 

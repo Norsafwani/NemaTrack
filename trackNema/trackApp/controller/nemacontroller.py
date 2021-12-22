@@ -8,6 +8,7 @@ from django.contrib.auth import logout, authenticate, login
 from django.core.files.storage import FileSystemStorage
 from trackApp.models import Nema, Returnformnema
 import openpyxl #For Upload Excel
+from django.contrib import messages
 
 # from trackApp.forms import DocumentForm
 # from trackApp.forms import DocumentForm
@@ -159,43 +160,70 @@ def returnformnema(request,nema_id):
          }
     return render(request, 'nema/nema_form.html', obj)
 
-#Function Submit 'Return Form' Form
+ #Function for Save Return Form info
 def submitreturnform(request):
-    # id = request.session['id']
-        if request.method=='POST':
-            date_uninstall = request.POST['dateuninstall']
-            date_detect = request.POST['datedetect']      
-            proofdescribe = request.POST['proof_describe']          
-            # proofvideo = request.POST['proof_video'] --proof_video = proofvideo,
-            nosiri = request.POST['no_siri']
+    if request.method=='POST':
+        date_uninstall = request.POST['dateuninstall']
+        print(date_uninstall)
 
-            #Image
-            image_proof = request.FILES.get('image_proof','')
-            filename = None
-            if image_proof != '':
-               the_file = request.FILES['image_proof']
-               fs = FileSystemStorage()
-               path = 'trackNema/static/'
-               filename = fs.save(path+username+'-'+the_file.name, the_file)
-               uploaded_file_url = fs.url(filename)
+        date_detect = request.POST['datedetect']   
+        print(date_detect)
 
-            #Pdf
-            pdf_proof = request.FILES.get('pdf_proof','')
-            filename = None
-            if pdf_proof != '':
-               the_file = request.FILES['pdf_proof']
-               fs = FileSystemStorage()
-               path = 'appstreetlight/static/'
-               filename = fs.save(path+username+'-'+the_file.name, the_file)
-               uploaded_file_url = fs.url(filename)
+        proofdescribe = request.POST['proof_describe']          
+        nosiri = request.POST['no_siri']
+        image_proof = request.FILES['image_proof']
+
+        # masuk ke database
+        # object = nama model( namacolumn=nama variable, others - if any)
+        form = Returnformnema(dateuninstall=date_uninstall, datedetect=date_detect, proof_describe=proofdescribe,
+                                  no_siri=nosiri, image_proof=image_proof)
+        form.save()
+        return redirect('return_nema')
+
+#Function for upload File (File System Storage) error=( MultiValueDictKeyError at /submitreturnform - image_proof)
+# def fileupload(request):
+#     if request.method == 'POST' and request.FILES['image_proof']:
+#         image_proof = request.FILES['image_proof']
+#         fs = FileSystemStorage()
+#         filename = fs.save(image_proof.name, image_proof)
+#         uploaded_file_url = fs.url(filename)
+
+#         return render(request, 'nema_form.html', {
+#             'uploaded_file_url': uploaded_file_url
+#         })
+#     return render(request, 'nema/nema_form.html')
+
+
+#EXAMPLE FORM - SUBMIT RETURN FORM
+def submitreturnform(request):
+
+    date_uninstall = request.POST['dateuninstall']
+    print(date_uninstall)
+    date_detect = request.POST['datedetect']   
+    print(date_detect)
+    proofdescribe = request.POST['proof_describe']          
+    nosiri = request.POST['no_siri']
+    img_exist = request.FILES.get('image_proof','')
+    try:
+
+        filename = None
+        if img_exist != '':
+            the_file = request.FILES['image_proof']
+            fs = FileSystemStorage()
+            path = 'trackNema/static/images/'
+            filename = fs.save(path+username+'-'+the_file.name, the_file)
+            uploaded_file_url = fs.url(filename)
         
-
-            # For insert into database
-            # object = nama model( namacolumn=nama variable, others - if any)
-            form = Returnformnema(dateuninstall=date_uninstall, datedetect=date_detect, 
-            proof_describe=proofdescribe, no_siri=nosiri, image_proof = filename, pdf_proof = filename)
-            form.save()
-        return render(request, 'nema/nema_form.html', {})
+        formsave = Returnformnema(dateuninstall=date_uninstall, datedetect=date_detect, proof_describe=proofdescribe,
+                                  no_siri=nosiri, img=filename)
+        formsave.save()
+        # messages.success(request, 'Successfully submit report')
+        return redirect('/return_nema')
+    except Exception as e:
+        # return HttpResponse(e)
+        # messages.error(request, 'Error submitting report with error code '+str(e))
+        print("ERROR")
+        return redirect('/return_nema')
 
 #Function for Display Return Nema [List]
 def return_nema(request):
@@ -207,17 +235,17 @@ def return_nema(request):
     return render(request, 'nema/return_form_list.html', content)
 
 #Function for upload File (File System Storage)
-def fileupload(request):
-    if request.method == 'POST' and request.FILES['documents']:
-        documents = request.FILES['documents']
-        fs = FileSystemStorage()
-        filename = fs.save(documents.name, documents)
-        uploaded_file_url = fs.url(filename)
+# def fileupload(request):
+#     if request.method == 'POST' and request.FILES['documents']:
+#         documents = request.FILES['documents']
+#         fs = FileSystemStorage()
+#         filename = fs.save(documents.name, documents)
+#         uploaded_file_url = fs.url(filename)
 
-        return render(request, 'nema_form.html', {
-            'uploaded_file_url': uploaded_file_url
-        })
-    return render(request, 'nema/nema_form.html')
+#         return render(request, 'nema_form.html', {
+#             'uploaded_file_url': uploaded_file_url
+#         })
+#     return render(request, 'nema/nema_form.html')
 
 
 # #TRY-Function for Upload Files & Images ni ke .. kn ?
@@ -270,8 +298,8 @@ def fileupload(request):
 #     return render(request, 'nema/upload_try.html', {'form': form })
 
     
-# TRY- Function for upload Excel(1) [ sepang_iot]
-# @login_required
+# TRY- Function for upload Excel(1) [ sepang_iot] --Error = BadZipFile at /get_excel
+# @login_required 
 def get_excel(request):
     import openpyxl
 
@@ -287,7 +315,6 @@ def get_excel(request):
 
     for row in worksheet.iter_rows(min_row=2,values_only=True):
         count = count + 1
-       
         devui = str(row[0])
         app_key = str(row[1])
         ship_date_received = str(row[2])
@@ -302,29 +329,22 @@ def get_excel(request):
         do_number = str(row[11])
         remarks = str(row[12])
 
-        if response2.status_code == 200:
-            # print('Success addDeviceAppKey')
-            nema = Nema(devui=devui,app_key=app_key,
+        nema = Nema(devui=devui,app_key=app_key,
                         ship_date_received=ship_date_received,
                         site_install_date=site_install_date,date_deliver=date_deliver,
                         lightsol_name=lightsol_name,license_active_date=license_active_date,
                         license_expired_date=license_expired_date,
                         contractor_name=contractor_name,end_client_name=end_client_name,
                         project_tender_name=project_tender_name, do_number=do_number,remarks=remarks)
-            nema.save()
-            msg = 'Successfully add devices'
-            countsuccess += 1
-        else:
-            msg = 'Failed add devices'
-            countfail += 1
+        nema.save()
+        msg = 'Successfully add devices'
+        countsuccess += 1
         
     # return HttpResponse(payload)
     # return HttpResponseRedirect('/')
     msg = 'Success add: '+str(countsuccess)+' - Failed add: '+str(countfail)
     func.logaction(userid, 'createdeviceexcel', countsuccess)
     return HttpResponse(msg)
-
-
 
 
 #TRY- Function File Upload
