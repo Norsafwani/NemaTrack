@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'trackApp' ,
-    'import_export' , #For export, import file excel in django admin
-    'django.contrib.postgres' , #To use the search lookup
+    #'import_export' , #For export, import file excel in django admin
+    #'django.contrib.postgres' , #To use the search lookup
 ]
 
 MIDDLEWARE = [
@@ -87,9 +87,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'Nema',
         'USER': 'root',
-        'PASSWORD': 'yourpassword',
+        'PASSWORD': 'OuPfme45oAM6m6S8lqy4PQfxlYFlCnmPzyaloZ5Zw=',
         'HOST': '0.0.0.0',
-        'PORT': '3306',
+        'PORT': '3308',
     },
 }
 
@@ -128,7 +128,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [ os.path.join(BASE_DIR,'static') ]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

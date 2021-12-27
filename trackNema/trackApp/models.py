@@ -144,6 +144,7 @@ class Nema(models.Model):
 
 
 class Returnformnema(models.Model):
+    devui= models.TextField(blank=True, null=True)
     dateuninstall = models.DateTimeField(blank=True, null=True)
     datedetect = models.DateTimeField(blank=True, null=True)
     proof_describe = models.CharField(max_length=255, blank=True, null=True)

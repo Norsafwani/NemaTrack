@@ -163,6 +163,10 @@ def returnformnema(request,nema_id):
  #Function for Save Return Form info
 def submitreturnform(request):
     if request.method=='POST':
+
+        devui_id = request.POST['devui']
+        print(devui_id)
+
         date_uninstall = request.POST['dateuninstall']
         print(date_uninstall)
 
@@ -173,9 +177,10 @@ def submitreturnform(request):
         nosiri = request.POST['no_siri']
         image_proof = request.FILES['image_proof']
 
+
         # masuk ke database
         # object = nama model( namacolumn=nama variable, others - if any)
-        form = Returnformnema(dateuninstall=date_uninstall, datedetect=date_detect, proof_describe=proofdescribe,
+        form = Returnformnema(devui=devui_id,dateuninstall=date_uninstall, datedetect=date_detect, proof_describe=proofdescribe,
                                   no_siri=nosiri, image_proof=image_proof)
         form.save()
         return redirect('return_nema')
@@ -194,36 +199,36 @@ def submitreturnform(request):
 #     return render(request, 'nema/nema_form.html')
 
 
-#EXAMPLE FORM - SUBMIT RETURN FORM
-def submitreturnform(request):
+# #EXAMPLE FORM - SUBMIT RETURN FORM
+# def submitreturnform(request):
 
-    date_uninstall = request.POST['dateuninstall']
-    print(date_uninstall)
-    date_detect = request.POST['datedetect']   
-    print(date_detect)
-    proofdescribe = request.POST['proof_describe']          
-    nosiri = request.POST['no_siri']
-    img_exist = request.FILES.get('image_proof','')
-    try:
+#     date_uninstall = request.POST['dateuninstall']
+#     print(date_uninstall)
+#     date_detect = request.POST['datedetect']   
+#     print(date_detect)
+#     proofdescribe = request.POST['proof_describe']          
+#     nosiri = request.POST['no_siri']
+#     img_exist = request.FILES.get('image_proof','')
+#     try:
 
-        filename = None
-        if img_exist != '':
-            the_file = request.FILES['image_proof']
-            fs = FileSystemStorage()
-            path = 'trackNema/static/images/'
-            filename = fs.save(path+username+'-'+the_file.name, the_file)
-            uploaded_file_url = fs.url(filename)
+#         filename = None
+#         if img_exist != '':
+#             the_file = request.FILES['image_proof']
+#             fs = FileSystemStorage()
+#             path = 'trackNema/static/images/'
+#             filename = fs.save(path+username+'-'+the_file.name, the_file)
+#             uploaded_file_url = fs.url(filename)
         
-        formsave = Returnformnema(dateuninstall=date_uninstall, datedetect=date_detect, proof_describe=proofdescribe,
-                                  no_siri=nosiri, img=filename)
-        formsave.save()
-        # messages.success(request, 'Successfully submit report')
-        return redirect('/return_nema')
-    except Exception as e:
-        # return HttpResponse(e)
-        # messages.error(request, 'Error submitting report with error code '+str(e))
-        print("ERROR")
-        return redirect('/return_nema')
+#         formsave = Returnformnema(dateuninstall=date_uninstall, datedetect=date_detect, proof_describe=proofdescribe,
+#                                   no_siri=nosiri, img=filename)
+#         formsave.save()
+#         # messages.success(request, 'Successfully submit report')
+#         return redirect('/return_nema')
+#     except Exception as e:
+#         # return HttpResponse(e)
+#         # messages.error(request, 'Error submitting report with error code '+str(e))
+#         print("ERROR")
+#         return redirect('/return_nema')
 
 #Function for Display Return Nema [List]
 def return_nema(request):

@@ -4,16 +4,18 @@
 <!--OSM-->
 {% load static %}
 <!--Map-->
-<!-- Page Wrapper -->
-<div id="wrapper">
 
-      <!-- Begin Page Content -->
-      <div class="container-fluid h-100 pt-4 darker-nw">
 
-<html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+
+
+form{
+  width: 90%;
+  text-align: left;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -61,13 +63,13 @@ input[type=submit]:hover {
 
 .col-25 {
   float: left;
-  width: 25%;
+  width: 15%;
   margin-top: 6px;
 }
 
 .col-75 {
   float: left;
-  width: 75%;
+  width: 85%;
   margin-top: 6px;
 }
 
@@ -88,77 +90,99 @@ input[type=submit]:hover {
 
 </style>
 </head>
-<body>
+<!-- Page Wrapper -->
+<div id="wrapper">
+ <!-- Sidebar -->
+    {% include 'layout/navbar.html' %}
 
-  <h4 class="pb-4 text-white">
-    Nema Return Form for DEVUI: {{ objnema2.devui }}
-  </h4>
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+      <!-- Begin Page Content -->
+      <div id="content">
 
-  <form action="/submitreturnform" method="POST" enctype = "multipart/form-data" >
-    {% csrf_token %}
+        <!-- Topbar -->
+        {% include 'layout/topbar.html' %}
+        <!-- End of Topbar -->
+          
+        <div class="container-fluid h-100 pt-4 darker-nw">
+          <div class="container">
+            <h4 class="" style="color:gray;">
+              <strong>Nema Return Form for DEVUI:</strong> {{ objNema.devui }}
+            </h4>
 
-    <div class="row">
-      <div class="col-25">
-        <label for="dateuninstall">Date Uninstall (From Site)</label>
-      </div>
-      <div class="col-75">
-        <input type="date" id="dateuninstall" name="dateuninstall">
-      </div>
-    </div>
+            <center><form action="/submitreturnform" method="POST" enctype = "multipart/form-data" >
+              {% csrf_token %}
 
-    <div class="row">
-      <div class="col-25">
-        <label for="datedetect">Date Problem Detected</label>
-      </div>
-      <div class="col-75">
-        <input type="date" id="datedetect" name="datedetect">
-      </div>
-    </div>
+              <input type="hidden" id="devui" name="devui" value="{{ objNema.devui }}">
 
-    <div class="row">
-      <div class="col-25">
-        <label for="prof_describe">Problem Description</label>
-      </div>
-      <div class="col-75">
-        <textarea id="proof_describe" name="proof_describe" placeholder="Problem Description" style="height:100px"></textarea>
-      </div>
-    </div>
+              <div class="row">
+                <div class="col-25">
+                  <label for="dateuninstall">Date Uninstall (From Site)</label>
+                </div>
+                <div class="col-75">
+                  <input type="date" id="dateuninstall" name="dateuninstall">
+                </div>
+              </div>
 
-    <div class="row">
-      <div class="col-25">
-        <label for="no_siri">Siri Number</label>
-      </div>
-      <div class="col-75">
-        <input type="text" id="no_siri" name="no_siri" placeholder="Nema Number Siri">
-      </div>
-    </div>
-  
-    <div class="row">
-        <div class="col-25">
-          <label for="no_siri">Images: </label>
-        </div>
-        <div class="col-75">
-          <input class="form-control" type="file" accept="image/*" name="image_proof" id="imgInp">
-          <!-- <img id="blah" src="#" alt="your image:" width="300" height="300" /> -->
-          <!-- <input type="file" class="form-control" name="product_file" id="product_file"> -->
-        </div>
-    </div> 
+              <div class="row">
+                <div class="col-25">
+                  <label for="datedetect">Date Problem Detected</label>
+                </div>
+                <div class="col-75">
+                  <input type="date" id="datedetect" name="datedetect">
+                </div>
+              </div>
 
-    <div class="row">
-      <input type="submit" value="Submit">
-    </div>
+              <div class="row">
+                <div class="col-25">
+                  <label for="prof_describe">Problem Description</label>
+                </div>
+                <div class="col-75">
+                  <textarea id="proof_describe" name="proof_describe" placeholder="Problem Description" style="height:100px"></textarea>
+                </div>
+              </div>
 
-  </form>
-   
+              <div class="row">
+                <div class="col-25">
+                  <label for="no_siri">Siri Number</label>
+                </div>
+                <div class="col-75">
+                  <input type="text" id="no_siri" name="no_siri" placeholder="Nema Number Siri">
+                </div>
+              </div>
+            
+              <div class="row">
+                  <div class="col-25">
+                    <label for="no_siri">Images: </label>
+                  </div>
+                  <div class="col-75">
+                    <input class="form-control" type="file" accept="image/*" name="image_proof" id="imgInp">
+                    <!-- <img id="blah" src="#" alt="your image:" width="300" height="300" /> -->
+                    <!-- <input type="file" class="form-control" name="product_file" id="product_file"> -->
+                  </div>
+              </div> 
 
+              <div class="row">
+                <input type="submit" value="Submit">
+              </div>
 
-</body>
-</html>
+            </form></center>
+          </div>
+        </div> 
+        
 
+      </div><!-- END Page Content -->
 
-      </div> <!-- END Page Content -->
+      <!-- Footer -->
+        {% include 'layout/footer.html' %}
+        <!-- End of Footer -->
+      
+
+    </div><!-- End of Content Wrapper -->
 
 </div> <!-- Page Wrapper -->
+  
+
 
 <script>
 
