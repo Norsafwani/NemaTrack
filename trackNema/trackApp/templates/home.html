@@ -47,19 +47,49 @@
                                style="border: 1px solid black; padding: 5px;" required="required">
                         <input type="submit" value="Upload"
                                style="border: 1px solid green; padding:5px; border-radius: 2px; cursor: pointer;">
-                    </form> --> ceni eeee?
+                    </form> -->
 
-                    <form action="form_upload" method="post" enctype="multipart/form-data">
+                    <!-- <form action="/index_excel" method="post" enctype="multipart/form-data">
                         {% csrf_token %}
-                        <!-- <input type="text" class="form-control" name="file" id="file"> -->
-                        <input type="file" class="form-control" name="file" id="file"><br>
-                        <input type="submit" value="Upload"/>
+                        <input type="file"
+                               title="Upload excel file"
+                               name="excel_file"
+                               style="border: 1px solid black; padding: 5px;"
+                               required="required">
+                        <p>
+                        <input type="submit" value="Upload EXCEL" style="border: 1px solid green; padding:5px; border-radius: 2px; cursor: pointer;">
                     </form>
 
+                    {% for row in excel_data %}
+                    {% for cell in row %}
+                        {{ cell }}&nbsp;&nbsp;
+                    {% endfor %}
+                    <br>
+                    {% endfor %} -->
+
+                    <!-- Form for get_excel -->
+                    <label>Import Excel File BARU</label>
+                        <form action="/get_excel" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input id="adddevicetype2" name="adddevicetype2" class="form-control" value="false" hidden>
+                            <input type="file" title="Upload excel file" name="excel_file"
+                                   style="border: 1px solid black; padding: 5px;" required="required">
+                            <input type="submit" value="Upload"
+                                   style="border: 1px solid green; padding:5px; border-radius: 2px; cursor: pointer;">
+                    </form>
+
+
+                    <!-- <form action="form_upload" method="post" enctype="multipart/form-data">
+                        {% csrf_token %} -->
+                        <!-- <input type="text" class="form-control" name="file" id="file"> -->
+                        <!-- <input type="file" class="form-control" name="file" id="file"><br>
+                        <input type="submit" value="Upload"/>
+                    </form> -->
+
                     <!--Coding for Upload File--> 
-                        {% if uploaded_file_url %}
+                        <!-- {% if uploaded_file_url %}
                         <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
-                        {% endif %}
+                        {% endif %} -->
                     <!-- <a href="/static/appstreetlight/document/exampleExcelToUpload.xlsx" class="mt-5" download><i class="ti-download"></i>Example excel file</a>
                     {% if messages %}
                     {% for message in messages %}

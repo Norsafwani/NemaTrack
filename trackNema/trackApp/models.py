@@ -142,6 +142,16 @@ class Nema2(models.Model):
         db_table = 'nema2'
 
 
+class Nemad(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    devui_d = models.CharField(max_length=255)
+    app_key_d = models.CharField(max_length=255)
+
+    class Meta:
+        managed = False
+        db_table = 'nemaD'
+
+
 class Nemadate(models.Model):
     id = models.BigIntegerField(primary_key=True)
     date_install = models.IntegerField(blank=True, null=True)

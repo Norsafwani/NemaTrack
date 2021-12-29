@@ -72,9 +72,9 @@ urlpatterns = [
     #UPLOAD FILE(2)
     path ('form_upload',nemacontroller.form_upload, name='form_upload'),
 
-    #Try UnixTime
-    path ('trydate',nemacontroller.trydate, name='trydate'),
-    path ('createdate',nemacontroller.createdate, name='createdate'),
+    #Try excel file 
+    path ('get_excel',nemacontroller.get_excel, name='get_excel'),
+
 
 
 ]

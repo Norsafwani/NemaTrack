@@ -6,7 +6,8 @@ from trackApp.models import AuthUser, AuthPermission
 from django.contrib.auth.forms import AuthenticationForm 
 from django.contrib.auth import logout, authenticate, login
 from django.core.files.storage import FileSystemStorage
-from trackApp.models import Nema2, Nemareturnform, Nemadate
+from trackApp.models import Nema2, Nemareturnform, Nemadate, Nemad
+from django.contrib.auth.decorators import login_required
 import openpyxl #For Upload Excel
 
 # from trackApp.forms import DocumentForm
@@ -347,6 +348,50 @@ def trydate(request):
         dater.save()
     return redirect('/indexnema')
 
+#TRY TO UPLOAD EXCEL TO DATABASE - 
+def get_excel(request):
+    import openpyxl
+    adddevicetype = request.POST['adddevicetype2']
+    # return HttpResponse(adddevicetype)
+    # organizationid = request.session['organizationid']
+    # userid = request.session['userid']
+
+    excel_file = request.FILES["excel_file"]
+    wb = openpyxl.load_workbook(excel_file)
+    worksheet = wb["Sheet1"] 
+    count = countsuccess = countfail = 0 
+    msg = 'none'
+
+    for row in worksheet.iter_rows(min_row=2,values_only=True):
+        count = count + 1
+
+        id = str(row[0])
+        devuid = str(row[1])
+        app_keyd = str(row[2])
+
+        # print(devname,deveui,appkey,devdesc,feederid,devprofileid,appid,location,latitude,longitude,comment,lanmodel,lanpower,lanmanu,lighttype,installdate,groupinweb,secinfeeder,grpinfeeder,devicestatus)
+        if adddevicetype == 'true':
+
+            if response2.status_code == 200:
+                # print('Success addDeviceAppKey')
+                nema = Nemad(devui_d=devuid, app_key_d= app_keyd)
+                nema.save()
+                msg = 'Successfully add devices'
+                countsuccess += 1
+            else:
+                # msg = 'Failed add devices'
+                countfail += 1
+        else:
+            # device without NEMA
+            nema = Nemad(devui_d=devuid, app_key_d= app_keyd)
+            nema.save()
+            countsuccess += 1
+            
+    # return HttpResponse(payload)
+    # return HttpResponseRedirect('/')
+    # return HttpResponse(msg)
+    return redirect('/home')
+    
 
 
 
